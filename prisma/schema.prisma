@@ -16,7 +16,7 @@ model users {
   first_name String
   last_name String
   email String
-  authetication_metadata String
-  created_at String
-  updated_at String
+  auth_metadata String
+  created_at DateTime
+  updated_at DateTime
 }

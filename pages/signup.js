@@ -4,7 +4,6 @@ import Form from '../components/form'
 import Layout from '../components/layout'
 
 const Signup = () => {
-
   const [errorMsg, setErrorMsg] = useState('')
 
   async function handleSubmit(e) {

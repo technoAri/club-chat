@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <Layout>
       <div className="login">
-        <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <Form isLogin isResetPassword={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
       </div>
       <style jsx>{`
         .login {

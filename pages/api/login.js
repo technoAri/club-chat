@@ -7,7 +7,6 @@ export default async function login(req, res) {
     findUser(req.body.email, "", req.body.password)
     setTimeout((arg) => {
         if (isTrue) {
-          console.log("USER Logged In")
           try {
             const user = loggedInUser
             // session is the payload to save in the token, it may contain basic info about the user
@@ -23,7 +22,6 @@ export default async function login(req, res) {
         }
         else{
           res.status(401).send({error: 'Invalid Username or Password'})
-          console.log("USER not logged in")
         }
     }, 500);
     

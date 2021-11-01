@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import Form from '../components/form'
 
 const Signup = () => {
-  useUser({ redirectTo: '/', redirectIfFound: true })
+  useUser({ redirectTo: '/login', redirectIfFound: true })
 
   const [errorMsg, setErrorMsg] = useState('')
   
@@ -19,7 +19,6 @@ const Signup = () => {
     const body = {
       email: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
-      username: e.currentTarget.username.value
     }
 
     if (body.password !== e.currentTarget.rpassword.value) {
@@ -34,7 +33,7 @@ const Signup = () => {
     }
 
     try {
-      const res = await fetch('/api/signup', {
+      const res = await fetch('/api/password_reset', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -54,7 +53,7 @@ const Signup = () => {
   return (
     <Layout>
       <div className="login">
-        <Form isLogin={false} isResetPassword={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <Form isLogin={false} isResetPassword errorMessage={errorMsg} onSubmit={handleSubmit} />
       </div>
       <style jsx>{`
         .login {

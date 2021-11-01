@@ -1,12 +1,12 @@
 import Link from 'next/link'
 
-const Form = ({ isLogin, errorMessage, onSubmit }) => (
+const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
   <form onSubmit={onSubmit}>
     <label>
       <span>Email</span>
       <input type="text" name="email" required />
     </label>
-    {!isLogin && (
+    {!isLogin && !isResetPassword && (
       <label>
       <span>Username</span>
       <input type="text" name="username" required />
@@ -24,19 +24,55 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
     )}
 
     <div className="submit">
-      {isLogin ? (
+      {isLogin && !isResetPassword && (
+          <>
+            <Link href="/signup">
+              <a>I don't have an account</a>
+            </Link>
+            <button type="submit">Login</button>
+          </>
+        )}
+
+        {!isLogin && !isResetPassword && (
+          <>
+            <Link href="/login">
+              <a>I already have an account</a>
+            </Link>
+          <button type="submit">Signup</button>
+          </>
+        )}
+
+        {!isLogin && isResetPassword && (
+          <>
+          <Link href="/login">
+              <a>Go to Login</a>
+          </Link>
+          <button type="submit">Reset Password</button>
+          </>
+        )}
+
+      {/* {isLogin ? (
         <>
           <Link href="/signup">
             <a>I don't have an account</a>
           </Link>
           <button type="submit">Login</button>
         </>
-      ) : (
+      ) : (      
         <>
           <Link href="/login">
             <a>I already have an account</a>
           </Link>
           <button type="submit">Signup</button>
+        </>
+      )} */}
+    </div>
+    <div>
+      {isLogin && (
+        <>
+          <Link href="/password_reset">
+            <a className="forgot_password_txt">Forgot Password</a>
+          </Link>
         </>
       )}
     </div>
@@ -80,6 +116,9 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
       .error {
         color: brown;
         margin: 1rem 0 0;
+      }
+      .forgot_password_txt {
+        color: red;
       }
     `}</style>
   </form>

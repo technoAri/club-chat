@@ -2,9 +2,15 @@ import { useState } from 'react'
 import Router from 'next/router'
 import Layout from '../components/layout'
 import Form from '../components/form'
+import { useUser } from '../lib/hooks'
 
 const Login = () => {
+  const user = useUser({ redirectTo: '/login', redirectIfFound: true })
   const [errorMsg, setErrorMsg] = useState('')
+
+  if (user) {
+    Router.push('/')
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -17,11 +23,22 @@ const Login = () => {
     }
 
     try {
-        Router.push('/')
-    } catch (error) {
-      console.error('An unexpected error happened occurred:', error)
-      setErrorMsg(error.message)
-    }
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+  
+        if (res.status === 200) {
+          debugger;
+          Router.push('/')
+        } else {
+          throw new Error(await res.text())
+        }
+      } catch (error) {
+        console.error('An unexpected error happened occurred:', error)
+        setErrorMsg(error.message)
+      }
   }
 
   return (

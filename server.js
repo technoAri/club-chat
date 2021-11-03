@@ -13,16 +13,12 @@ app.prepare().then(() => {
     return handle(req, res)
   });
 
-  const app = server.listen(port, (err) => {
+  const ws = server.listen(port, (err) => {
     if (err) throw err
     console.log(`> Ready on http://localhost:${port}`)
   });
 
-  const io = require("socket.io")(app, {
-    cors: {
-      origin: "*",
-    },
-  });
+  const io = require("socket.io")(ws);
   
   const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
   

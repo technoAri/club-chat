@@ -62,6 +62,7 @@ const Signup = () => {
           padding: 1rem;
           border: 1px solid #ccc;
           border-radius: 4px;
+          margin-top: 100px;
         }
       `}</style>
     </Layout>

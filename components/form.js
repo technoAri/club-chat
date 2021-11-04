@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Router from 'next/router'
 
 const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
   <form onSubmit={onSubmit}>
@@ -13,7 +14,18 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
     </label>
     )}
     <label>
+      <div>
+      <div className="forgot_pass_container">
       <span>Password</span>
+      {isLogin && (
+        <>
+          <Link href="/password_reset">
+            <a className="forgot_password_txt">Forgot Password?</a>
+          </Link>
+        </>
+      )}
+    </div>
+      </div>
       <input type="password" name="password" required />
     </label>
     {!isLogin && (
@@ -26,55 +38,32 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
     <div className="submit">
       {isLogin && !isResetPassword && (
           <>
-            <Link href="/signup">
+            {/* <Link href="/signup">
               <a>I don't have an account</a>
-            </Link>
-            <button type="submit">Login</button>
+            </Link> */}
+            <button type="submit">Sign in</button>
           </>
         )}
 
         {!isLogin && !isResetPassword && (
           <>
-            <Link href="/login">
+            {/* <Link href="/login">
               <a>I already have an account</a>
-            </Link>
-          <button type="submit">Signup</button>
+            </Link> */}
+          <button type="submit">Sign up</button>
           </>
         )}
 
         {!isLogin && isResetPassword && (
           <>
-          <Link href="/login">
-              <a>Go to Login</a>
-          </Link>
+          <button type="reset">
+            <Link href="/login">
+              Cancel
+            </Link>
+          </button>
           <button type="submit">Reset Password</button>
           </>
         )}
-
-      {/* {isLogin ? (
-        <>
-          <Link href="/signup">
-            <a>I don't have an account</a>
-          </Link>
-          <button type="submit">Login</button>
-        </>
-      ) : (      
-        <>
-          <Link href="/login">
-            <a>I already have an account</a>
-          </Link>
-          <button type="submit">Signup</button>
-        </>
-      )} */}
-    </div>
-    <div>
-      {isLogin && (
-        <>
-          <Link href="/password_reset">
-            <a className="forgot_password_txt">Forgot Password</a>
-          </Link>
-        </>
-      )}
     </div>
 
     {errorMessage && <p className="error">{errorMessage}</p>}
@@ -106,7 +95,10 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
       .submit > button {
         padding: 0.5rem 1rem;
         cursor: pointer;
-        background: #fff;
+        width: 100%;
+        background: black;
+        color: white;
+        font-weight: 600;
         border: 1px solid #ccc;
         border-radius: 4px;
       }
@@ -118,7 +110,14 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
         margin: 1rem 0 0;
       }
       .forgot_password_txt {
-        color: red;
+        color: #58a6ff;
+        font-size: 12px;
+      }
+      .forgot_pass_container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        justify-content: space-between;
       }
     `}</style>
   </form>

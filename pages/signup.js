@@ -89,7 +89,7 @@ const Signup = () => {
             font-size: 24px;
             font-weight: 300;
             letter-spacing: -0.5px;
-            margin-top: 100px;
+            margin-top: 50px;
           }
       `}</style>
     </Layout>

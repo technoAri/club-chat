@@ -10,7 +10,7 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState('')
 
   if (user) {
-    Router.push('/')
+    Router.push('/chat')
   }
 
   async function handleSubmit(e) {

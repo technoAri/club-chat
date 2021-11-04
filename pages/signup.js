@@ -6,7 +6,7 @@ import Form from '../components/form'
 import Link from 'next/link'
 
 const Signup = () => {
-  useUser({ redirectTo: '/', redirectIfFound: true })
+  useUser({ redirectTo: '/chat', redirectIfFound: true })
 
   const [errorMsg, setErrorMsg] = useState('')
   

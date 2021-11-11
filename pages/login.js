@@ -65,7 +65,6 @@ const Login = () => {
           border-radius: 4px;
           margin-top: 15px;
         }
-
         .secondary_text {
             max-width: 21rem;
             margin: 0 auto;

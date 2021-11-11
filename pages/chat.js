@@ -1,78 +1,94 @@
-import React, { useState } from 'react'
-import useChat from '../hooks/useChat'
-import styles from '../styles/Chat.module.css'
+import React, { useState } from "react";
+import Layout from "../components/layout";
+import useChat from "../hooks/useChat";
+import { useUser } from "../lib/hooks";
+import styles from "../styles/Chat.module.css";
 
-function ChatRoom({ 
-    roomId, 
-    messages,
-    newMessage, 
-    handleNewMessageChange,
-    handleSendMessage
+function ChatRoom({
+  roomId,
+  messages,
+  newMessage,
+  handleNewMessageChange,
+  handleSendMessage,
+  username
 }) {
-    return (
-        <div className={styles.chatRoomContainer}>
-            <h1 className={styles.roomName}>Room: {roomId}</h1>
-            <div className={styles.messagesContainer}>
-                <ol className={styles.messagesList}>
-                {messages.map((message, i) => (
-                    <li
-                    key={i}
-                    className={`${styles.messageItem} ${
-                        message.ownedByCurrentUser ? styles.myMessage : styles.receivedMessage
-                    }`}
-                    >
-                    {message.body}
-                    </li>
-                ))}
-                </ol>
-            </div>
-            <textarea
-                value={newMessage}
-                onChange={handleNewMessageChange}
-                placeholder="Write message..."
-                className={styles.newMessageInputField}
-            />
-            <button onClick={handleSendMessage} className={styles.sendMessageButton}>
-                Send
-            </button>
-        </div>
-    )
+  return (
+    <div className={styles.chatRoomContainer}>
+      <h1 className={styles.roomName}>Room: {roomId}</h1>
+      <div className={styles.messagesContainer}>
+        <ol className={styles.messagesList}>
+          {messages.map((message, i) => (
+            <li
+              key={i}
+              className={`${styles.messageItem} ${
+                message.ownedByCurrentUser
+                  ? styles.myMessage
+                  : styles.receivedMessage
+              }`}
+            >
+              {message.body + " " + message.userName}
+            </li>
+          ))}
+        </ol>
+      </div>
+      <textarea
+        value={newMessage}
+        onChange={handleNewMessageChange}
+        placeholder="Write message..."
+        className={styles.newMessageInputField}
+      />
+      <button onClick={handleSendMessage} className={styles.sendMessageButton}>
+        Send
+      </button>
+    </div>
+  );
 }
 
-function ChatPage() {
-    const [roomId, setRoomId] = useState('random')
-    const { messages, sendMessage } = useChat(roomId)
-    const [newMessage, setNewMessage] = React.useState('')
+function ChatPage () {
+  const [roomId, setRoomId] = useState("random");
+  const { messages, sendMessage } = useChat(roomId);
+  const [newMessage, setNewMessage] = React.useState("");
+  
+  const user = useUser()
+  console.log(user)
 
-    const createRoom = (room) => {
-        setRoomId(room)
-    }
+  const createRoom = (room) => {
+    setRoomId(room);
+    console.log(room);
+  };
 
-    const handleNewMessageChange = (event) => {
-        setNewMessage(event.target.value)
-      }
-    
-      const handleSendMessage = () => {
-        sendMessage(newMessage)
-        setNewMessage('')
-      }
+  const handleNewMessageChange = (event) => {
+    setNewMessage(event.target.value, user.username);
+    console.log(user.username)
+  };
 
-    return (
-        <div>
-            <h1 className={styles.heading}> This is a club chat page. </h1>
-            <div className={styles.topic}>
-                <button onClick={() => createRoom('topic 1')}> Topic 1 </button>
-                <button onClick={() => createRoom('topic 2')}> Topic 2 </button>
-                <button onClick={() => createRoom('topic 3')}> Topic 3 </button>
-            </div>
-            <ChatRoom 
-            roomId={roomId}
-            messages={messages}
-            newMessage={newMessage} 
-            handleNewMessageChange={handleNewMessageChange}
-            handleSendMessage={handleSendMessage} />
+  const handleSendMessage = () => {
+    sendMessage(newMessage, user.username);
+    console.log(user.username);
+    // console.log(user)
+    setNewMessage("");
+  };
+
+  return (
+    <Layout>
+      <h1 className={styles.heading}> This is a club chat page. </h1>
+      <div>
+        <div className={styles.topic}>
+          <button onClick={() => createRoom("JavaScript")}> JavaScript </button>
+          <button onClick={() => createRoom("React")}> React </button>
+          <button onClick={() => createRoom("Angular")}> Angular </button>
         </div>
-    )
+        <ChatRoom
+          roomId={roomId}
+          messages={messages}
+          newMessage={newMessage}
+          username = {user}
+          handleNewMessageChange={handleNewMessageChange}
+          handleSendMessage={handleSendMessage}
+        />
+      </div>
+    </Layout>
+  );
 }
 
-export default ChatPage
+export default ChatPage;

@@ -6,66 +6,66 @@ import Form from '../components/form'
 import Link from 'next/link'
 
 const Signup = () => {
-  useUser({ redirectTo: '/chat', redirectIfFound: true })
+    useUser({ redirectTo: '/chat', redirectIfFound: true })
 
-  const [errorMsg, setErrorMsg] = useState('')
-  
-  const passwordpattern = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.{6,})') //Minimum six characters, at least one letter and one number
+    const [errorMsg, setErrorMsg] = useState('')
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+    const passwordpattern = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.{6,})') //Minimum six characters, at least one letter and one number
 
-    if (errorMsg) setErrorMsg('')
+    async function handleSubmit(e) {
+        e.preventDefault()
 
-    const body = {
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
-      username: e.currentTarget.username.value
+        if (errorMsg) setErrorMsg('')
+
+        const body = {
+            email: e.currentTarget.email.value,
+            password: e.currentTarget.password.value,
+            username: e.currentTarget.username.value
+        }
+
+        if (body.password !== e.currentTarget.rpassword.value) {
+            setErrorMsg(`The passwords don't match`)
+            return
+        }
+
+        console.log(passwordpattern.test(body.password))
+        if (!passwordpattern.test(body.password)) {
+            setErrorMsg(`The passwords must be at least 6 digit in length and contains at least one lowercase and one uppercase letter.`)
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            })
+            if (res.status === 200) {
+                debugger;
+                Router.push('/login')
+            } else {
+                throw new Error(await res.text())
+            }
+        } catch (error) {
+            console.error('An unexpected error happened occurred:', error)
+            setErrorMsg(error.message)
+        }
     }
 
-    if (body.password !== e.currentTarget.rpassword.value) {
-      setErrorMsg(`The passwords don't match`)
-      return
-    }
-
-    console.log(passwordpattern.test(body.password))
-    if (!passwordpattern.test(body.password)) {
-        setErrorMsg(`The passwords must be at least 6 digit in length and contains at least one lowercase and one uppercase letter.`)
-        return;
-    }
-
-    try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-      if (res.status === 200) {
-        debugger;
-        Router.push('/login')
-      } else {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      console.error('An unexpected error happened occurred:', error)
-      setErrorMsg(error.message)
-    }
-  }
-
-  return (
-    <Layout>
-      <h1 className="login_text">
-          Sign up to continue
+    return (
+        <Layout>
+            <h1 className="login_text">
+                Sign up to continue
       </h1>
-      <div className="login">
-        <Form isLogin={false} isResetPassword={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
-      </div>
-      <div className="secondary_text">
-        <Link href="/login">
-            <a>I already have an account</a>
-        </Link>
-      </div>
-      <style jsx>{`
+            <div className="login">
+                <Form isLogin={false} isResetPassword={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
+            </div>
+            <div className="secondary_text">
+                <Link href="/login">
+                    <a>I already have an account</a>
+                </Link>
+            </div>
+            <style jsx>{`
         .login {
           max-width: 21rem;
           margin: 0 auto;
@@ -92,8 +92,8 @@ const Signup = () => {
             margin-top: 50px;
           }
       `}</style>
-    </Layout>
-  )
+        </Layout>
+    )
 }
 
 export default Signup

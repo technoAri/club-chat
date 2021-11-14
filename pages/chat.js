@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import useChat from "../hooks/useChat";
 import { useUser } from "../lib/hooks";
@@ -44,17 +44,57 @@ function ChatRoom({
 }
 
 function ChatPage () {
-    // const prisma = new PrismaClient();
   const [roomId, setRoomId] = useState("random");
   const { messages, sendMessage } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
+  const [errorMsg, setErrorMsg] = useState('')
   
   const user = useUser()
   console.log(user)
 
+  useEffect(() => {
+    try {
+      const res = fetch('/api/topics', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+      }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+      })
+      .catch((error) => {
+        console.log(error);
+    });
+  } catch (error) {
+      console.error('An unexpected error occurred:', error)
+      setErrorMsg(error.message)
+  };
+  });
+  
+
   const createRoom = (room) => {
     setRoomId(room);
-    console.log(room);
+    
+    if (errorMsg) setErrorMsg('')
+    const body = {
+      userId: user.id,
+      topicId: '2fe89ea0-b695-4685-838d-25bf6a1a30ff',
+    }
+
+    try {
+      const res = fetch('/api/user_topics', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+      })
+      if (res.status === 200) {
+          debugger;
+      } else {
+          throw new Error(res.text())
+      }
+  } catch (error) {
+      console.error('An unexpected error occurred:', error)
+      setErrorMsg(error.message)
+    }
   };
 
   const handleNewMessageChange = (event) => {

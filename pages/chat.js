@@ -10,7 +10,6 @@ function ChatRoom({
   newMessage,
   handleNewMessageChange,
   handleSendMessage,
-  username
 }) {
   return (
     <div className={styles.chatRoomContainer}>
@@ -45,6 +44,7 @@ function ChatRoom({
 }
 
 function ChatPage () {
+    // const prisma = new PrismaClient();
   const [roomId, setRoomId] = useState("random");
   const { messages, sendMessage } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");

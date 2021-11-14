@@ -18,4 +18,29 @@ model users {
   salt String
   maxage Int
   createdAt Int
+  topics usertopic[]
 }
+model topic {
+  id String @id @default(uuid())
+  name String
+  description String?
+  createdAt DateTime  @default(now())
+  topics usertopic[]
+}
+model usertopic {
+  id String @id @default(uuid())
+  user users? @relation(fields: [userId], references: [id])
+  userId String
+  topic topic? @relation(fields: [topicId], references: [id])
+  topicId String
+  messages message[]
+}
+model message {
+  id String @id @default(uuid())
+  text String
+  user usertopic? @relation(fields: [usertopicId], references: [id])
+  usertopicId String
+  createdAt DateTime  @default(now())
+}
+
+

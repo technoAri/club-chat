@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://postgres:javascript@localhost:5432/club_chat"
+  url      = env("DATABASE_URL")
 }
 
 model users {
@@ -19,6 +19,7 @@ model users {
   maxage Int
   createdAt Int
   topics usertopic[]
+  profiles profile[]
 }
 model topic {
   id String @id @default(uuid())
@@ -42,5 +43,18 @@ model message {
   usertopicId String
   createdAt DateTime  @default(now())
 }
+model profile {
+  userProfile users @relation(fields: [profileId], references: [id])
+  profileId String @id @default(uuid())
+  name String
+  email String
+  joinedDate DateTime
+  isAuthenticated Boolean
+  totalChat Int
+  totalTopicsFollowing Int
+  topicsFollowing String
+  dpLink String
+}
+
 
 

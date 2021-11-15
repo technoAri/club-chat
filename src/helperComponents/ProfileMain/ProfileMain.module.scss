@@ -1,0 +1,78 @@
+.profilemain {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    .profileheader {
+        width: 100%;
+        height: 12%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 6%;
+        border-bottom: 1px solid #b2ab8c;
+    }
+    .profilebody {
+        width: 100%;
+        height: 88%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        .profilebodytop {
+            width: 100%;
+            height: 450px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            .profileinfo {
+                width: 60%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                & > div {
+                    width: 80%;
+                    .username {
+                        font-size: 48px;
+                    }
+                    .email {
+                        font-size: 18px;
+                        color: rgb(245, 245, 147);
+                    }
+                    .totalchat {
+                        font-size: 22px;
+                    }
+                    .totalfollowing {
+                        font-size: 22px;
+                    }
+                }
+            }
+            .profileimage {
+                width: 40%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+            }
+        }
+        .profilebodybottom {
+            width: 100%;
+            height: 450px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}

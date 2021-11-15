@@ -54,12 +54,13 @@ function ChatPage () {
 
   useEffect(() => {
     try {
-      const res = fetch('/api/topics', {
+      fetch('/api/topics', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
       }).then(response => response.json())
       .then(data => {
         console.log(data)
+        const allTopics = data.topics;
       })
       .catch((error) => {
         console.log(error);
@@ -77,7 +78,7 @@ function ChatPage () {
     if (errorMsg) setErrorMsg('')
     const body = {
       userId: user.id,
-      topicId: '2fe89ea0-b695-4685-838d-25bf6a1a30ff',
+      topicId: '1ee6baa8-b232-4173-829b-5ff09c36e43e',
     }
 
     try {
@@ -114,6 +115,7 @@ function ChatPage () {
       <h1 className={styles.heading}> This is a club chat page. </h1>
       <div>
         <div className={styles.topic}>
+          
           <button onClick={() => createRoom("JavaScript")}> JavaScript </button>
           <button onClick={() => createRoom("React")}> React </button>
           <button onClick={() => createRoom("Angular")}> Angular </button>

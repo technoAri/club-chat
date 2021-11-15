@@ -1,8 +1,8 @@
 import React from 'react';
-import TopicsComponent from '../src/components/ToipcsComponents/TopicsComponent';
+import ChatComponent from '../src/components/ChatComponent/ChatComponent';
 
 export default function chat() {
     return (
-        <TopicsComponent />
+        <ChatComponent />
     )
 }

@@ -3,6 +3,8 @@ import Layout from "../../../components/layout";
 import useChat from "../../../hooks/useChat";
 import { useUser } from "../../../lib/hooks";
 import styles from "./ChatMain.module.scss";
+import Image from "next/image";
+import logo from "../../../public/favicon.ico";
 
 function ChatBody({
   roomId,
@@ -17,27 +19,58 @@ function ChatBody({
       <div className={styles.messagesContainer}>
         <ol className={styles.messagesList}>
           {messages.map((message, i) => (
-            <div>
-              <li
-                key={i}
-                className={`${styles.messageItem} ${
-                  message.ownedByCurrentUser
-                    ? styles.myUsername
-                    : styles.otherUsername
-                }`}
-              >
-                {message.userName}
-              </li>
-              <li
-                key={i}
-                className={`${styles.messageItem} ${
-                  message.ownedByCurrentUser
-                    ? styles.myMessage
-                    : styles.receivedMessage
-                }`}
-              >
-                {message.body}
-              </li>
+            <div
+              className={
+                message.ownedByCurrentUser
+                  ? styles.userImg
+                  : styles.otherUsernameContainer
+              }
+            >
+              <div>
+                {/* <Image src={"logo"} width={40} height={40} /> */}
+                <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg" className={styles.profileImg}></img>
+              </div>
+              <div>
+                <div
+                  className={
+                    message.ownedByCurrentUser
+                      ? styles.myUsernameContainer
+                      : styles.otherUsernameContainer
+                  }
+                >
+                  <li
+                    key={i}
+                    className={`${styles.messageItem} ${
+                      message.ownedByCurrentUser
+                        ? styles.myUsername
+                        : styles.otherUsername
+                    }`}
+                  >
+                    {message.userName}
+                  </li>
+                  <li
+                    key={i}
+                    className={`${styles.messageItem} ${
+                      message.ownedByCurrentUser
+                        ? styles.timestamp
+                        : styles.timestamp
+                    }`}
+                  >
+                    {"Nov 14, 6:47 PM"}
+                  </li>
+                </div>
+
+                <li
+                  key={i}
+                  className={`${styles.messageItem} ${
+                    message.ownedByCurrentUser
+                      ? styles.myMessage
+                      : styles.receivedMessage
+                  }`}
+                >
+                  {message.body}
+                </li>
+              </div>
             </div>
           ))}
         </ol>

@@ -79,6 +79,7 @@
 
 .width_100 {
     width: 100%;
+    height: 100%;
 }
 
 .heading {
@@ -99,6 +100,8 @@
     display: flex;
     flex-direction: column;
     margin: 16px;
+    height: 90%;
+    max-height: 90%;
 }
 
 .roomName {
@@ -107,7 +110,8 @@
 
 .messagesContainer {
     flex: 1;
-    min-height: 400px;
+    // min-height: 450px;
+    height: 100%;
     overflow: auto;
     border: 1px solid black;
     border-radius: 7px 7px 0 0;
@@ -141,14 +145,43 @@
 }
 
 .myUsername {
-    margin-left: auto;
     color: black;
     padding: 1px;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .otherUsername {
     color: black;
     padding: 1px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.timestamp {
+    color: black;
+    padding: 1px;
+    margin-left: -4px;
+    font-size: 14px;
+}
+
+.myUsernameContainer {
+    display: flex;
+    margin-left: auto;
+    justify-content: flex-end;
+}
+
+.userImg {
+    display: flex;
+    margin-right: 10px;
+    flex-direction: row-reverse;
+}
+
+.otherUsernameContainer {
+    display: flex;
+    margin-right: auto;
+    justify-content: flex-start;
+    margin-left: 10px;
 }
 
 .receivedMessage {
@@ -167,5 +200,12 @@
 .chatMessegesContainer {
     display: flex;
     flex-direction: row;
+}
+
+.profileImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 70px;
+    overflow: "hidden";
 }
 

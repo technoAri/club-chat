@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "../../../components/layout";
 import useChat from "../../../hooks/useChat";
 import { useUser } from "../../../lib/hooks";
 import styles from "./ChatMain.module.scss";
 import Image from "next/image";
-import logo from "../../../public/favicon.ico";
+import sendIcon from "../../../public/send-button.png";
 
 function ChatBody({
   roomId,
@@ -12,6 +12,7 @@ function ChatBody({
   newMessage,
   handleNewMessageChange,
   handleSendMessage,
+  messagesEndRef,
 }) {
   return (
     <div className={styles.chatRoomContainer}>
@@ -28,7 +29,10 @@ function ChatBody({
             >
               <div>
                 {/* <Image src={"logo"} width={40} height={40} /> */}
-                <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg" className={styles.profileImg}></img>
+                <img
+                  src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                  className={styles.profileImg}
+                ></img>
               </div>
               <div>
                 <div
@@ -70,17 +74,23 @@ function ChatBody({
                 >
                   {message.body}
                 </li>
+                <div ref={messagesEndRef} />
               </div>
             </div>
           ))}
         </ol>
       </div>
-      <textarea
-        value={newMessage}
-        onChange={handleNewMessageChange}
-        placeholder="Write message..."
-        className={styles.newMessageInputField}
-      />
+      <div className={styles.chatInputBorder}>
+        <textarea
+          value={newMessage}
+          onChange={handleNewMessageChange}
+          placeholder="Write message..."
+          className={styles.newMessageInputField}
+        />
+        <div className={styles.sendBtn} onClick={handleSendMessage}>
+          <Image src={sendIcon} width={25} height={25} />
+        </div>
+      </div>
     </div>
   );
 }
@@ -93,6 +103,20 @@ function ChatPage() {
 
   const user = useUser();
   console.log(user);
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+    // window.scrollTo({
+    //     top: messagesEndRef.current.offsetTop,
+    //     behavior: "smooth"
+    // });
+    console.log("Ref:", messagesEndRef);
+  };
 
   useEffect(() => {
     try {
@@ -162,6 +186,7 @@ function ChatPage() {
     console.log(user.username);
     // console.log(user)
     setNewMessage("");
+    scrollToBottom();
   };
 
   return (
@@ -178,6 +203,7 @@ function ChatPage() {
         username={user}
         handleNewMessageChange={handleNewMessageChange}
         handleSendMessage={handleSendMessage}
+        messagesEndRef={messagesEndRef}
       />
     </div>
   );

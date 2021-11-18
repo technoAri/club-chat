@@ -1,9 +1,13 @@
-import { PrismaClient } from ".prisma/client";
-
-const prisma = new PrismaClient();
+import { getUserProfile } from '../../lib/user'
 
 export default async function handler(req, res) {
-    const email = 'ayush@gmail.com'
-    const result = await prisma.$queryRaw`SELECT * FROM profile WHERE email = ${email}`
-    res.status(200).json({ result });
+    if (req.method === 'GET') {
+        try {
+            const result = await getUserProfile('510bad3d-3694-4e0d-8563-decc212d7eab');
+            res.status(200).send({ result })
+        } catch (error){
+            console.error(error)
+            res.status(500).send(error)
+        }
+    }
 }

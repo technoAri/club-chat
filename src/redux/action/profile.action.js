@@ -1,25 +1,25 @@
 import * as TYPE from "../types";
-// import axios from "axios";
+import axios from "axios";
 // import { request } from "../../util/request";
 
-export const setProfileData = (email) => (dispatch) => {
-  dispatch({
-    type: TYPE.ADD_SELECTEDTOPICSLIST,
-    payload: selectedTopics,
-  });
-};
 
-export const removeTopics = (selectedTopics) => (dispatch) => {
-  dispatch({
-    type: TYPE.REMOVE_SELECTEDTOPICSLIST,
-    payload: selectedTopics,
-  });
-};
-
-export const getProfileData = (email) => (dispatch) => {
-  
-  dispatch({
-    type: TYPE.ADD_SELECTEDTOPICSLIST,
-    payload: selectedTopics,
-  });
+export const getProfileData = (userId) => async (dispatch) => {
+  try {
+    var response = await axios.get(
+      'api/profile',
+      {
+        query: userId,
+      },
+      // { headers: { Authorization: getState().user.token } }
+    );
+    if (response) {
+      dispatch({
+        type: TYPE.SET_USERPROFILE,
+        payload: response.data.result,
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+    return;
+  }
 };

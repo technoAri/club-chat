@@ -1,4 +1,4 @@
-import { getAllTopics } from "../../lib/user-topics"
+import { getAllTopics, getTrendingTopics } from "../../lib/user-topics"
 
 export default async function topics(req, res) {
     const topics = await getAllTopics();

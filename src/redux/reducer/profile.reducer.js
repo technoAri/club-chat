@@ -1,8 +1,8 @@
 import * as TYPE from "../types";
 
 const initialState = {
-  topicsList: [],
-  selectedTopics: [],
+  isLoaded: false,
+  profileData: {}
 };
 const profile = (
   state = {
@@ -11,19 +11,11 @@ const profile = (
   action
 ) => {
   switch (action.type) {
-    case TYPE.ADD_SELECTEDTOPICSLIST:
-      const temp = state.selectedTopics;
-      temp.push(action.payload);
+    case TYPE.SET_USERPROFILE:
       return {
         ...state,
-        selectedTopics: [...temp],
-      };
-    case TYPE.REMOVE_SELECTEDTOPICSLIST:
-      let temp2 = state.selectedTopics;
-      temp2 = temp2.filter((item) => item !== action.payload);
-      return {
-        ...state,
-        selectedTopics: [...temp2],
+        isLoaded: true,
+        profileData: { ...action.payload },
       };
     default:
       return { ...state };

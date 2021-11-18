@@ -43,7 +43,7 @@ function ChatBody({
                   }
                 >
                   <li
-                    key={i}
+                    // key={i}
                     className={`${styles.messageItem} ${
                       message.ownedByCurrentUser
                         ? styles.myUsername
@@ -53,7 +53,7 @@ function ChatBody({
                     {message.userName}
                   </li>
                   <li
-                    key={i}
+                    // key={i}
                     className={`${styles.messageItem} ${
                       message.ownedByCurrentUser
                         ? styles.timestamp
@@ -65,7 +65,7 @@ function ChatBody({
                 </div>
 
                 <li
-                  key={i}
+                //   key={i}
                   className={`${styles.messageItem} ${
                     message.ownedByCurrentUser
                       ? styles.myMessage
@@ -102,7 +102,7 @@ function ChatPage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const user = useUser();
-  console.log(user);
+//   console.log(user);
 
   const messagesEndRef = useRef(null);
 
@@ -119,27 +119,26 @@ function ChatPage() {
   };
 
   useEffect(() => {
-    try {
-      fetch("/api/topics", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          const allTopics = data.topics;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
-      setErrorMsg(error.message);
-    }
+    // try {
+    //   fetch("/api/topics", {
+    //     method: "GET",
+    //     headers: { "Content-Type": "application/json" },
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       console.log(data);
+    //       const allTopics = data.topics;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } catch (error) {
+    //   console.error("An unexpected error occurred:", error);
+    //   setErrorMsg(error.message);
+    // }
 
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
-        console.log("Enter key was pressed. Run your function.");
         event.preventDefault();
         handleSendMessage();
       }
@@ -148,43 +147,45 @@ function ChatPage() {
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  }, []);
+  });
 
   const createRoom = (room) => {
     setRoomId(room);
 
     if (errorMsg) setErrorMsg("");
-    const body = {
-      userId: user.id,
-      topicId: "1ee6baa8-b232-4173-829b-5ff09c36e43e",
-    };
+    // const body = {
+    //   userId: user.id,
+    //   topicId: "1ee6baa8-b232-4173-829b-5ff09c36e43e",
+    // };
 
-    try {
-      const res = fetch("/api/user_topics", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (res.status === 200) {
-        debugger;
-      } else {
-        throw new Error(res.text());
-      }
-    } catch (error) {
-      console.error("An unexpected error occurred:", error);
-      setErrorMsg(error.message);
-    }
+    // try {
+    //   const res = fetch("/api/user_topics", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(body),
+    //   });
+    //   if (res.status === 200) {
+    //     debugger;
+    //   } else {
+    //     throw new Error(res.text());
+    //   }
+    // } catch (error) {
+    //   console.error("An unexpected error occurred:", error);
+    //   setErrorMsg(error.message);
+    // }
   };
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value, user.username);
     console.log(user.username);
+    console.log(event.target.value);
   };
 
   const handleSendMessage = () => {
+    console.log("newMsg1::",newMessage)
     sendMessage(newMessage, user.username);
     console.log(user.username);
-    // console.log(user)
+    console.log("newMsg::",newMessage)
     setNewMessage("");
     scrollToBottom();
   };

@@ -17,6 +17,7 @@ CREATE TABLE "topic" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "isTrending" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "topic_pkey" PRIMARY KEY ("id")
 );
@@ -43,10 +44,6 @@ CREATE TABLE "message" (
 -- CreateTable
 CREATE TABLE "profile" (
     "profileId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "joinedDate" TIMESTAMP(3) NOT NULL,
-    "isAuthenticated" BOOLEAN NOT NULL,
     "totalChat" INTEGER NOT NULL,
     "totalTopicsFollowing" INTEGER NOT NULL,
     "topicsFollowing" TEXT NOT NULL,

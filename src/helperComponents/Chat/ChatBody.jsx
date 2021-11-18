@@ -148,7 +148,7 @@ function ChatPage() {
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  });
+  }, []);
 
   const createRoom = (room) => {
     setRoomId(room);

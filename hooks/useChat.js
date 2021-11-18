@@ -27,13 +27,14 @@ const useChat = (roomId) => {
     };
   }, [roomId]);
 
-  const sendMessage = (messageBody, userName) => {
+  const sendMessage = (messageBody, userName, timestamp) => {
     // debugger;
-    console.log("username::", userName)
+    console.log("username::", timestamp)
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
       senderId: socketRef.current.id,
-      userName: userName
+      userName: userName,
+      timestamp: timestamp
     });
   };
 

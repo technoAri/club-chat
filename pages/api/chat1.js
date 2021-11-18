@@ -1,5 +1,6 @@
 import { PrismaClient } from '.prisma/client';
 import { v4 as uuidv4 } from 'uuid'
+import prisma from '../lib/prisma'
 
 // import { Server } from 'socket.io'
 
@@ -32,7 +33,7 @@ import { v4 as uuidv4 } from 'uuid'
 // export default chatHandler
 
 export default async function chat(req, res) {
-    const prisma = new PrismaClient();
+    // const prisma = new PrismaClient();
     try {
         await prisma.topic.createMany({
             data: [

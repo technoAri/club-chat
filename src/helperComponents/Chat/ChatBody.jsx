@@ -13,6 +13,7 @@ function ChatBody({
   handleNewMessageChange,
   handleSendMessage,
   messagesEndRef,
+  timestamp,
 }) {
   return (
     <div className={styles.chatRoomContainer}>
@@ -60,7 +61,7 @@ function ChatBody({
                         : styles.timestamp
                     }`}
                   >
-                    {"Nov 14, 6:47 PM"}
+                    {message.timestamp}
                   </li>
                 </div>
 
@@ -102,6 +103,7 @@ function ChatPage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const user = useUser();
+  let timestamp;
 //   console.log(user);
 
   const messagesEndRef = useRef(null);
@@ -177,15 +179,12 @@ function ChatPage() {
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value, user.username);
-    console.log(user.username);
     console.log(event.target.value);
   };
 
   const handleSendMessage = () => {
-    console.log("newMsg1::",newMessage)
-    sendMessage(newMessage, user.username);
-    console.log(user.username);
-    console.log("newMsg::",newMessage)
+    timestamp = new Date().toLocaleString();
+    sendMessage(newMessage, user.username, timestamp);
     setNewMessage("");
     scrollToBottom();
   };
@@ -202,6 +201,7 @@ function ChatPage() {
         messages={messages}
         newMessage={newMessage}
         username={user}
+        timestamp = {timestamp}
         handleNewMessageChange={handleNewMessageChange}
         handleSendMessage={handleSendMessage}
         messagesEndRef={messagesEndRef}

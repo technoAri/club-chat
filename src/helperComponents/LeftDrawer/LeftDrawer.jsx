@@ -27,7 +27,7 @@ export default function LeftDrawer() {
         dispatch(setCurrentChatTopic(tempTopic));
     }
     const tr = useSelector(
-        (state) => state.topics.currentChatTopic
+        (state) => state.topics.id
     );
     
     useEffect(() => {

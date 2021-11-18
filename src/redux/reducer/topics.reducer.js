@@ -1,8 +1,11 @@
 import * as TYPE from "../types";
 
 const initialState = {
+  currentChatTopic: '',
   topicsList: [],
   selectedTopics: [],
+  trendingTopics: [],
+  userTopics: [],
 };
 const topics = (
   state = {
@@ -25,6 +28,21 @@ const topics = (
         ...state,
         selectedTopics: [...temp2],
       };
+    case TYPE.SET_TRENDINGTOPICSLIST:
+      return {
+        ...state,
+        trendingTopics: [...action.payload],
+      }
+    case TYPE.SET_USERTOPICSLIST:
+      return {
+        ...state,
+        userTopics: [...action.payload],
+      }
+    case TYPE.SET_CURRENTCHATTOPIC:
+      return {
+        ...state,
+        currentChatTopic: action.payload,
+      }
     default:
       return { ...state };
   }

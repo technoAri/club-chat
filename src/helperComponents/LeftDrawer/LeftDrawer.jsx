@@ -24,10 +24,16 @@ export default function LeftDrawer() {
 
     const setCurrentChatTopicMethod = (e) => {
         const tempTopic =  e.target.innerText;
+        for (let i = 0; i < userTopicsLists.length; i++) {
+            if (userTopicsLists[i].name === tempTopic) {
+                tempTopic = userTopicsLists[i];
+            }
+        }
+        console.log("cct::", tempTopic)
         dispatch(setCurrentChatTopic(tempTopic));
     }
     const tr = useSelector(
-        (state) => state.topics.id
+        (state) => state.topics.currentChatTopic
     );
     
     useEffect(() => {

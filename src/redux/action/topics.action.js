@@ -67,3 +67,24 @@ export const setTrendingTopics = () => async (dispatch) => {
   }
 };
 
+export const updateUserTopics = (userId, topicId) => async (dispatch) => {
+  try {
+    var response = await axios.post(
+      'api/usertopics',
+      {
+        query: { userId, topicId }
+      },
+      // { headers: { Authorization: getState().user.token } }
+    );
+    if (response) {
+      dispatch({
+        type: TYPE.SET_USERTOPICSLIST,
+        payload: response.data.result,
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+    return;
+  }
+};
+

@@ -2,7 +2,7 @@ import * as TYPE from "../types";
 
 const initialState = {
   isLoaded: false,
-  profileData: {}
+  profileData: { }
 };
 const profile = (
   state = {
@@ -17,6 +17,18 @@ const profile = (
         isLoaded: true,
         profileData: { ...action.payload },
       };
+    case TYPE.SET_USERPROFILEAVATAR:
+      const temp = state.profileData;
+      const updatedState = {
+        ...temp,
+        dpLink: action.payload
+      }
+      console.log("updatedState", updatedState);
+    return {
+      ...state,
+      isLoaded: true,
+      profileData: { ...updatedState },
+    };
     default:
       return { ...state };
   }

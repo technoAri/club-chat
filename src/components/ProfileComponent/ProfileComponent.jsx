@@ -6,7 +6,7 @@ import Router from 'next/router'
 import { useUser } from "../../../lib/hooks";
 
 function ProfileComponent() {
-  const user = useUser('/login', '/profile');
+  //const user = useUser('/login', '/profile');
 
   return (
     <div className={styles.profilebody}>

@@ -5,15 +5,19 @@ export default async function usertopics(req, res) {
         try {
             const result = await getUserTopics('510bad3d-3694-4e0d-8563-decc212d7eab');
             res.status(200).send({ result })
-        } catch (error){
+        } catch (error) {
             console.error(error)
             res.status(500).send(error)
         }
     }
-    else {
+    else if (req.method === 'POST') {
         try {
-            createUserTopic(req.body)
-            res.status(200).send({ done: true })
+            const response = await createUserTopic('510bad3d-3694-4e0d-8563-decc212d7eab', '6159a426-e7ac-4a0f-9bcf-b606918418f4');
+            if (response) {
+                const result = await getUserTopics('510bad3d-3694-4e0d-8563-decc212d7eab');
+                res.status(200).send({ result })
+            }
+            res.status(200).send({ done: false })
         }
         catch (error) {
             console.error(error)

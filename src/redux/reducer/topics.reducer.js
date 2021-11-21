@@ -1,7 +1,7 @@
 import * as TYPE from "../types";
 
 const initialState = {
-  currentChatTopic: '',
+  currentChatTopic: {},
   topicsList: [],
   selectedTopics: [],
   trendingTopics: [],

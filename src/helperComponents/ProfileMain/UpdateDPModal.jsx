@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import NextModal from 'react-modal';
 import Image from "next/image";
 import { updateProfileAvatar } from '../../redux/action/profile.action';
+import { useUser } from "../../../lib/hooks";
 import styles from "./ProfileMain.module.scss";
 import Avatar from '../../../public/assets/avatar.png';
 import Avatar1 from '../../../public/assets/avatar1.png';
@@ -36,8 +37,9 @@ export default function UpdateDPModal({ props }) {
     const dispatch = useDispatch();
     const [avatar, setAvatar] = useState('avatar');
     const { modalIsOpen, closeModal } = props;
+    const user = useUser();
     const updateAvatar = (avatar) => {
-        dispatch(updateProfileAvatar('XDER', avatar));
+        dispatch(updateProfileAvatar(user.id, avatar));
     }
     useEffect(() => {
         if (modalIsOpen) {

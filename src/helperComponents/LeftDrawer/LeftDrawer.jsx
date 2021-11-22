@@ -10,22 +10,36 @@ import { setUserTopics, setTrendingTopics, setCurrentChatTopic } from "../../red
 import { getProfileData } from "../../redux/action/profile.action";
 import { useSelector, useDispatch } from "react-redux";
 import ConfirmModal from './ConfirmModal';
+import { useUser } from "../../../lib/hooks";
+import Loader from 'react-loader';
 
 export default function LeftDrawer() {
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const [userState, setUserState] = useState(null);
+    const user = useUser();
+    if (user) {
+        //console.log("USER", user.id);
+        if (!userState) {
+            setUserState(user);
+        }
+    }
+
     const [modalIsOpen, setIsOpen] = useState(false);
     const [topicItem, setTopicItem] = useState(null);
     const [currentChatTopicItem, setCurrentChatTopicItem] = useState(null);
-
-    const router = useRouter();
-    const dispatch = useDispatch();
 
     const userProfile = useSelector(
         (state) => state.profile
     );
 
     useEffect(() => {
-        dispatch(getProfileData('qwerty'));
-    }, []);
+        if (userState) {
+            dispatch(setUserTopics(user.id));
+            dispatch(setTrendingTopics());
+            dispatch(getProfileData(user.id));
+        }
+    }, [userState]);
 
     const { isLoaded = false, profileData } = userProfile;
 
@@ -45,26 +59,20 @@ export default function LeftDrawer() {
     );
 
     useEffect(() => {
-        dispatch(setUserTopics('qwerty'));
-        dispatch(setTrendingTopics());
+        if (user) {
+
+        }
     }, []);
 
 
     useEffect(() => {
-        dispatch(setCurrentChatTopic(currentChatTopicItem));
-        router.push('/chat')
-    }, []);
-
-    // const tr = useSelector(
-    //     (state) => state.topics.currentChatTopic
-    // );
-
-    // useEffect(() => {
-    //     console.log("TR", tr);
-    // }, [tr]);
+        if (currentChatTopicItem) {
+            dispatch(setCurrentChatTopic(currentChatTopicItem));
+            router.push('/chat');
+        }
+    }, [currentChatTopicItem]);
 
     useEffect(() => {
-        console.log("TR", topicItem);
         if (topicItem && checkDuplication(topicItem)) {
             setIsOpen(true);
         }
@@ -110,7 +118,7 @@ export default function LeftDrawer() {
                     </div>
                 </div>
             </div>
-            <ConfirmModal props={{ modalIsOpen, closeModal, topicItem, userId: '' }} />
+            <ConfirmModal props={{ modalIsOpen, closeModal, topicItem, user: user || '' }} />
         </>
     )
 }

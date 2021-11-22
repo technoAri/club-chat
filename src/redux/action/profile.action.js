@@ -8,7 +8,9 @@ export const getProfileData = (userId) => async (dispatch) => {
     var response = await axios.get(
       'api/profile',
       {
-        query: userId,
+        params: {
+          query: userId,
+        }
       },
       // { headers: { Authorization: getState().user.token } }
     );
@@ -29,8 +31,9 @@ export const updateProfileAvatar = (userId, avatar) => async (dispatch) => {
     var response = await axios.post(
       'api/updateavatar',
       {
-        query: { userId, avatar }
-
+        params: {
+          query: { userId, avatar }
+        }
       },
       // { headers: { Authorization: getState().user.token } }
     );

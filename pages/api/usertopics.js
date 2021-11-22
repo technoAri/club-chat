@@ -3,7 +3,7 @@ import { createUserTopic, getUserTopics } from "../../lib/user-topics"
 export default async function usertopics(req, res) {
     if (req.method === 'GET') {
         try {
-            const result = await getUserTopics('510bad3d-3694-4e0d-8563-decc212d7eab');
+            const result = await getUserTopics(req.query.query);
             res.status(200).send({ result })
         } catch (error) {
             console.error(error)
@@ -12,9 +12,9 @@ export default async function usertopics(req, res) {
     }
     else if (req.method === 'POST') {
         try {
-            const response = await createUserTopic('510bad3d-3694-4e0d-8563-decc212d7eab', '6159a426-e7ac-4a0f-9bcf-b606918418f4');
+            const response = await createUserTopic(req.body.params.query.userId, req.body.params.query.topicId);
             if (response) {
-                const result = await getUserTopics('510bad3d-3694-4e0d-8563-decc212d7eab');
+                const result = await getUserTopics(req.body.params.query.userId);
                 res.status(200).send({ result })
             }
             res.status(200).send({ done: false })

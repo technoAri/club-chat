@@ -5,9 +5,9 @@ import styles from "./ProfileMain.module.scss";
 import ProfileHeader from "./ProfileHeader";
 import ProfileBody from "./ProfileBody";
 import { useSelector, useDispatch } from "react-redux";
-import { useUser } from "../../../lib/hooks";
 
 export default function ProfileMain() {
+    
     const userProfile = useSelector(
         (state) => state.profile
     );

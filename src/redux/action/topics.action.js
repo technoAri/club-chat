@@ -29,7 +29,9 @@ export const setUserTopics = (userId) => async (dispatch) => {
     var response = await axios.get(
       'api/usertopics',
       {
-        query: userId,
+        params: {
+          query: userId,
+        }
       },
       // { headers: { Authorization: getState().user.token } }
     );
@@ -72,7 +74,9 @@ export const updateUserTopics = (userId, topicId) => async (dispatch) => {
     var response = await axios.post(
       'api/usertopics',
       {
-        query: { userId, topicId }
+        params: {
+          query: { userId, topicId }
+        }
       },
       // { headers: { Authorization: getState().user.token } }
     );

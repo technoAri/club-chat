@@ -24,11 +24,13 @@ const customStyles = {
 
 export default function UpdateDPModal({ props }) {
     const dispatch = useDispatch();
-    const { modalIsOpen, closeModal, topicItem, userId } = props;
+    const { modalIsOpen, closeModal, topicItem, user } = props;
     const updateUserTopic = () => {
         if (topicItem) {
-            dispatch(updateUserTopics(userId, topicItem.id));
-            closeModal();
+            if (user) {
+                dispatch(updateUserTopics(user.id, topicItem.id));
+                closeModal();
+            }
         }
     }
 
@@ -45,7 +47,7 @@ export default function UpdateDPModal({ props }) {
                         <div className={styles.closebtn}>
                             <button onClick={closeModal}>X</button>
                         </div>
-                        <div  className={styles.modaltext}>
+                        <div className={styles.modaltext}>
                             {`Do you want to add ${topicItem.name}?`}
                         </div>
                         <div className={styles.modalbtn}>

@@ -7,7 +7,6 @@ export default async function user(req, res) {
     if (session != undefined)
       updateMaxAge(session);
     const user = (session && (await getActiveUser(session))) ?? null
-    console.log('session::', session);
     res.status(200).json({ user })
   } catch (error) {
     console.error(error)

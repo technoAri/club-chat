@@ -29,7 +29,9 @@ export const setUserTopics = (userId) => async (dispatch) => {
     var response = await axios.get(
       'api/usertopics',
       {
-        query: userId,
+        params: {
+          query: userId,
+        }
       },
       // { headers: { Authorization: getState().user.token } }
     );
@@ -58,6 +60,29 @@ export const setTrendingTopics = () => async (dispatch) => {
     if (response) {
       dispatch({
         type: TYPE.SET_TRENDINGTOPICSLIST,
+        payload: response.data.result,
+      });
+    }
+  } catch (err) {
+    console.log("Error", err);
+    return;
+  }
+};
+
+export const updateUserTopics = (userId, topicId) => async (dispatch) => {
+  try {
+    var response = await axios.post(
+      'api/usertopics',
+      {
+        params: {
+          query: { userId, topicId }
+        }
+      },
+      // { headers: { Authorization: getState().user.token } }
+    );
+    if (response) {
+      dispatch({
+        type: TYPE.SET_USERTOPICSLIST,
         payload: response.data.result,
       });
     }

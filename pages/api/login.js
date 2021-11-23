@@ -4,7 +4,7 @@ import { isTrue } from '../../lib/user'
 
 export default async function login(req, res) {
   try {
-    findUser(req.body.email, "", req.body.password)
+    findUser(req.body.email, req.body.username, req.body.password)
     setTimeout((arg) => {
         if (isTrue) {
           try {

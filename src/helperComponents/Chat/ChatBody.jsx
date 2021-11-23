@@ -5,6 +5,7 @@ import { useUser } from "../../../lib/hooks";
 import styles from "./ChatMain.module.scss";
 import Image from "next/image";
 import sendIcon from "../../../public/send-button.png";
+import { useSelector } from "react-redux";
 
 function ChatBody({
   roomId,
@@ -104,7 +105,12 @@ function ChatPage() {
 
   const user = useUser();
   let timestamp;
-//   console.log(user);
+
+  const selectedTopics = useSelector(
+    (state) => state.topics
+);
+
+console.log('selectedTopics::', selectedTopics)
 
   const messagesEndRef = useRef(null);
 

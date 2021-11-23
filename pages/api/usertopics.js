@@ -3,17 +3,21 @@ import { createUserTopic, getUserTopics } from "../../lib/user-topics"
 export default async function usertopics(req, res) {
     if (req.method === 'GET') {
         try {
-            const result = await getUserTopics('5a0fa6fc-67f6-49bd-b575-410eeca45ec3');
+            const result = await getUserTopics(req.query.query);
             res.status(200).send({ result })
-        } catch (error){
+        } catch (error) {
             console.error(error)
             res.status(500).send(error)
         }
     }
-    else {
+    else if (req.method === 'POST') {
         try {
-            createUserTopic(req.body)
-            res.status(200).send({ done: true })
+            const response = await createUserTopic(req.body.params.query.userId, req.body.params.query.topicId);
+            if (response) {
+                const result = await getUserTopics(req.body.params.query.userId);
+                res.status(200).send({ result })
+            }
+            res.status(200).send({ done: false })
         }
         catch (error) {
             console.error(error)

@@ -4,20 +4,14 @@ import PropTypes from "prop-types";
 import styles from "./ProfileMain.module.scss";
 import ProfileHeader from "./ProfileHeader";
 import ProfileBody from "./ProfileBody";
-import { getProfileData } from "../../redux/action/profile.action";
 import { useSelector, useDispatch } from "react-redux";
-import { useUser } from "../../../lib/hooks";
 
 export default function ProfileMain() {
+    
     const userProfile = useSelector(
         (state) => state.profile
     );
-    const { isLoaded = false, profileData } = userProfile;
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(getProfileData('qwerty'));
-    }, []);
+    const { isLoaded = false, profileData = {} } = userProfile;
 
     return (
         <div className={styles.profilemain}>
@@ -29,7 +23,8 @@ export default function ProfileMain() {
                     username: profileData.userProfile.username,
                     email: profileData.userProfile.email,
                     totalChat: profileData.totalChat,
-                    totalTopicsFollowing: profileData.totalTopicsFollowing
+                    totalTopicsFollowing: profileData.totalTopicsFollowing,
+                    dpLink: profileData.dpLink,
                 }} />
             </>}
         </div>

@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import Layout from "../../../components/layout";
 import useChat from "../../../hooks/useChat";
 import { useUser } from "../../../lib/hooks";
 import styles from "./ChatMain.module.scss";
 import Image from "next/image";
 import sendIcon from "../../../public/send-button.png";
 import { useSelector } from "react-redux";
-import Router from 'next/router'
+import Router from "next/router";
 
 function ChatBody({
   roomId,
@@ -100,16 +99,16 @@ function ChatBody({
 
 function ChatPage() {
   const [roomId, setRoomId] = useState("random");
-  const { messages, sendMessage } = useChat(roomId);
+  var { messages, sendMessage, setMessages } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [roomCount, setRoomCount] = useState(0);
 
   const user = useUser();
-//   console.log("user::", user)
-//   if (!user) {
-//       Router.push('/login');
-//   }
+  //   console.log("user::", user)
+  //   if (!user) {
+  //       Router.push('/login');
+  //   }
   let timestamp;
 
   const createRoom = (room) => {
@@ -129,29 +128,47 @@ function ChatPage() {
       );
 
       if (selectedTopics.currentChatTopic.topic) {
-        // const reqBody = {
-        //     topicId: selectedTopics.currentChatTopic.topic.id
-        // }
         try {
-          fetch(`/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`, {
-              method: 'GET',
-              headers: { 'Content-Type': 'application/json' },
-            //   params: JSON.stringify(reqBody)
-          }).then(response => response.json())
-          .then(data => {
-            console.log(data)
-          //   const messages = data.topics;
-          })
-          .catch((error) => {
-            console.log(error);
-        });
-      } catch (error) {
-          console.error('An unexpected error occurred:', error)
-          setErrorMsg(error.message)
-      };
+          fetch(
+            `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              if (messages.length === 0) {
+               setMessages([
+                {
+                    "body": "hello!",
+                    "senderId": "HJBwl1LPk5es6jJVAAAv",
+                    "userName": "technoAri",
+                    "timestamp": "11/25/2021, 1:07:15 AM",
+                    "ownedByCurrentUser": true
+                },
+                {
+                    "body": "Hi",
+                    "senderId": "HJBwl1LPk5es6jJVAAAv",
+                    "userName": "technoAri",
+                    "timestamp": "11/25/2021, 1:07:20 AM",
+                    "ownedByCurrentUser": true
+                }
+            ])
+                console.log("messages::", messages);
+              }
+            //   messages = data.messages;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } catch (error) {
+          console.error("An unexpected error occurred:", error);
+          setErrorMsg(error.message);
+        }
       }
     }
-    
   }
 
   const messagesEndRef = useRef(null);
@@ -161,10 +178,6 @@ function ChatPage() {
       behavior: "smooth",
       block: "end",
     });
-    // window.scrollTo({
-    //     top: messagesEndRef.current.offsetTop,
-    //     behavior: "smooth"
-    // });
     console.log("Ref:", messagesEndRef);
   };
 
@@ -180,7 +193,7 @@ function ChatPage() {
       document.removeEventListener("keydown", listener);
     };
   });
-  
+
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value, user.username);
     console.log(event.target.value);
@@ -193,31 +206,33 @@ function ChatPage() {
     scrollToBottom();
     setRoomCount(0);
 
-    const body = {
-        text: newMessage,
-        userId: user.id,
-        username: user.username,
-        topicId: selectedTopics.currentChatTopic.topic.id,
-        timestamp: timestamp
-    }
+    console.log("SendMesseges::",messages);
 
-    try {
-        debugger;
-        const res = fetch('/api/messages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-        })
-        if (res.status === 200) {
-            debugger;
-            console.log(res);
-        } else {
-            throw new Error(res.text())
-        }
-    } catch (error) {
-        console.error('An unexpected error happened occurred:', error)
-        setErrorMsg(error.message)
-    }
+    const body = {
+      text: newMessage,
+      userId: user.id,
+      username: user.username,
+      topicId: selectedTopics.currentChatTopic.topic.id,
+      timestamp: timestamp,
+    };
+
+    // try {
+    //   debugger;
+    //   const res = fetch("/api/messages", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(body),
+    //   });
+    //   if (res.status === 200) {
+    //     debugger;
+    //     console.log(res);
+    //   } else {
+    //     throw new Error(res.text());
+    //   }
+    // } catch (error) {
+    //   console.error("An unexpected error happened occurred:", error);
+    //   setErrorMsg(error.message);
+    // }
   };
 
   return (

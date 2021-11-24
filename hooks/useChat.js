@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
+import { useUser } from "../lib/hooks";
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 const SOCKET_SERVER_URL = parseInt(process.env.PORT, 10) ? 'https://club-chat.herokuapp.com' : "http://localhost:3000";
@@ -7,6 +8,8 @@ const SOCKET_SERVER_URL = parseInt(process.env.PORT, 10) ? 'https://club-chat.he
 const useChat = (roomId) => {
   const [messages, setMessages] = useState([]);
   const socketRef = useRef();
+
+  const user = useUser();
 
   useEffect(() => {
     setMessages([]);
@@ -17,7 +20,7 @@ const useChat = (roomId) => {
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
       const incomingMessage = {
         ...message,
-        ownedByCurrentUser: message.senderId === socketRef.current.id,
+        ownedByCurrentUser: message.senderId === user.id,
       };
       setMessages((messages) => [...messages, incomingMessage]);
     });
@@ -30,13 +33,13 @@ const useChat = (roomId) => {
   const sendMessage = (messageBody, userName, timestamp) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
       body: messageBody,
-      senderId: socketRef.current.id,
+      senderId: user.id,
       userName: userName,
       timestamp: timestamp
     });
   };
 
-  return { messages, sendMessage };
+  return { messages, sendMessage, setMessages };
 };
 
 export default useChat;

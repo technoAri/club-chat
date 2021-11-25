@@ -62,7 +62,7 @@ function ChatBody({
                         : styles.timestamp
                     }`}
                   >
-                    {message.timestamp}
+                    {message.createdAt}
                   </li>
                 </div>
 
@@ -74,7 +74,7 @@ function ChatBody({
                       : styles.receivedMessage
                   }`}
                 >
-                  {message.body}
+                  {message.text}
                 </li>
                 <div ref={messagesEndRef} />
               </div>
@@ -138,25 +138,13 @@ function ChatPage() {
           )
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
               if (messages.length === 0) {
-               setMessages([
-                {
-                    "body": "hello!",
-                    "senderId": "HJBwl1LPk5es6jJVAAAv",
-                    "userName": "technoAri",
-                    "timestamp": "11/25/2021, 1:07:15 AM",
-                    "ownedByCurrentUser": true
-                },
-                {
-                    "body": "Hi",
-                    "senderId": "HJBwl1LPk5es6jJVAAAv",
-                    "userName": "technoAri",
-                    "timestamp": "11/25/2021, 1:07:20 AM",
-                    "ownedByCurrentUser": true
-                }
-            ])
-                console.log("messages::", messages);
+               
+               for (let i = 0; i < data.messages.length; i++) {
+                   data.messages[i].ownedByCurrentUser = data.messages[i].userId === user.id;
+               }
+               setMessages(data.messages);
+                console.log("messages::", data.messages);
               }
             //   messages = data.messages;
             })

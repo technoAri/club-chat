@@ -59,16 +59,11 @@ export default function LeftDrawer() {
     );
 
     useEffect(() => {
-        if (user) {
-
-        }
-    }, []);
-
-
-    useEffect(() => {
         if (currentChatTopicItem) {
             dispatch(setCurrentChatTopic(currentChatTopicItem));
-            router.push('/chat');
+            if(router.pathname !== '/chat'){
+                router.push('/chat');
+            } 
         }
     }, [currentChatTopicItem]);
 

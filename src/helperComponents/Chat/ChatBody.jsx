@@ -16,6 +16,15 @@ function ChatBody({
   messagesEndRef,
   timestamp,
 }) {
+  const _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      console.log('do validate');
+      e.preventDefault();
+      if (newMessage.length > 0) {
+        handleSendMessage();
+      }
+    }
+  }
   return (
     <div className={styles.chatRoomContainer}>
       <h1 className={styles.roomName}>Room: {roomId}</h1>
@@ -46,21 +55,19 @@ function ChatBody({
                 >
                   <li
                     // key={i}
-                    className={`${styles.messageItem} ${
-                      message.ownedByCurrentUser
-                        ? styles.myUsername
-                        : styles.otherUsername
-                    }`}
+                    className={`${styles.messageItem} ${message.ownedByCurrentUser
+                      ? styles.myUsername
+                      : styles.otherUsername
+                      }`}
                   >
                     {message.userName}
                   </li>
                   <li
                     // key={i}
-                    className={`${styles.messageItem} ${
-                      message.ownedByCurrentUser
-                        ? styles.timestamp
-                        : styles.timestamp
-                    }`}
+                    className={`${styles.messageItem} ${message.ownedByCurrentUser
+                      ? styles.timestamp
+                      : styles.timestamp
+                      }`}
                   >
                     {message.timestamp}
                   </li>
@@ -68,11 +75,10 @@ function ChatBody({
 
                 <li
                   //   key={i}
-                  className={`${styles.messageItem} ${
-                    message.ownedByCurrentUser
-                      ? styles.myMessage
-                      : styles.receivedMessage
-                  }`}
+                  className={`${styles.messageItem} ${message.ownedByCurrentUser
+                    ? styles.myMessage
+                    : styles.receivedMessage
+                    }`}
                 >
                   {message.body}
                 </li>
@@ -88,6 +94,7 @@ function ChatBody({
           onChange={handleNewMessageChange}
           placeholder="Write message..."
           className={styles.newMessageInputField}
+          onKeyDown={_handleKeyDown}
         />
         <div className={styles.sendBtn} onClick={handleSendMessage}>
           <Image src={sendIcon} width={25} height={25} />
@@ -118,6 +125,7 @@ function ChatPage() {
   };
 
   const selectedTopics = useSelector((state) => state.topics);
+  console.log("selectedTopics", selectedTopics);
   if (selectedTopics.currentChatTopic.topic) {
     if (roomCount === 0) {
       setRoomCount(1);
@@ -140,25 +148,25 @@ function ChatPage() {
             .then((data) => {
               console.log(data);
               if (messages.length === 0) {
-               setMessages([
-                {
+                setMessages([
+                  {
                     "body": "hello!",
                     "senderId": "HJBwl1LPk5es6jJVAAAv",
                     "userName": "technoAri",
                     "timestamp": "11/25/2021, 1:07:15 AM",
                     "ownedByCurrentUser": true
-                },
-                {
+                  },
+                  {
                     "body": "Hi",
                     "senderId": "HJBwl1LPk5es6jJVAAAv",
                     "userName": "technoAri",
                     "timestamp": "11/25/2021, 1:07:20 AM",
                     "ownedByCurrentUser": true
-                }
-            ])
+                  }
+                ])
                 console.log("messages::", messages);
               }
-            //   messages = data.messages;
+              //   messages = data.messages;
             })
             .catch((error) => {
               console.log(error);
@@ -181,18 +189,18 @@ function ChatPage() {
     console.log("Ref:", messagesEndRef);
   };
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
-        event.preventDefault();
-        handleSendMessage();
-      }
-    };
-    document.addEventListener("keydown", listener);
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  });
+  // useEffect(() => {
+  //   const listener = (event) => {
+  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
+  //       event.preventDefault();
+  //       handleSendMessage();
+  //     }
+  //   };
+  //   document.addEventListener("keydown", listener);
+  //   return () => {
+  //     document.removeEventListener("keydown", listener);
+  //   };
+  // });
 
   const handleNewMessageChange = (event) => {
     setNewMessage(event.target.value, user.username);
@@ -206,7 +214,7 @@ function ChatPage() {
     scrollToBottom();
     setRoomCount(0);
 
-    console.log("SendMesseges::",messages);
+    console.log("SendMesseges::", messages);
 
     const body = {
       text: newMessage,

@@ -7,7 +7,8 @@ export default function LeftDrawer() {
     return (
         <div className={styles.chatheader}>
             <div>Welcome Ayush</div>
-            <div>Logout</div>
+            
+            <a href="/api/logout" className={styles.logoutText}>Logout</a>
         </div>
     )
 }

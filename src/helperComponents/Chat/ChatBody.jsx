@@ -16,6 +16,15 @@ function ChatBody({
   messagesEndRef,
   timestamp,
 }) {
+  const _handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      console.log("do validate");
+      e.preventDefault();
+      if (newMessage.length > 0) {
+        handleSendMessage();
+      }
+    }
+  };
   return (
     <div className={styles.chatRoomContainer}>
       <h1 className={styles.roomName}>Room: {roomId}</h1>
@@ -88,6 +97,7 @@ function ChatBody({
           onChange={handleNewMessageChange}
           placeholder="Write message..."
           className={styles.newMessageInputField}
+          onKeyDown={_handleKeyDown}
         />
         <div className={styles.sendBtn} onClick={handleSendMessage}>
           <Image src={sendIcon} width={25} height={25} />
@@ -102,7 +112,7 @@ function ChatPage() {
   var { messages, sendMessage, setMessages } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [roomCount, setRoomCount] = useState(0);
+  var [shouldCallApi, setCallApi] = useState(true);
 
   const user = useUser();
   //   console.log("user::", user)
@@ -118,9 +128,11 @@ function ChatPage() {
   };
 
   const selectedTopics = useSelector((state) => state.topics);
-  if (selectedTopics.currentChatTopic.topic) {
-    if (roomCount === 0) {
-      setRoomCount(1);
+  console.log("selectedTopics", selectedTopics);
+
+  useEffect(() => {
+      if (shouldCallApi) { 
+    if (selectedTopics.currentChatTopic.topic) {
       createRoom(selectedTopics.currentChatTopic.topic.name);
       console.log(
         "selectedTopics::",
@@ -139,14 +151,13 @@ function ChatPage() {
             .then((response) => response.json())
             .then((data) => {
               if (messages.length === 0) {
-               
-               for (let i = 0; i < data.messages.length; i++) {
-                   data.messages[i].ownedByCurrentUser = data.messages[i].userId === user.id;
-               }
-               setMessages(data.messages);
+                for (let i = 0; i < data.messages.length; i++) {
+                  data.messages[i].ownedByCurrentUser =
+                    data.messages[i].userId === user.id;
+                }
+                setMessages(data.messages);
                 console.log("messages::", data.messages);
               }
-            //   messages = data.messages;
             })
             .catch((error) => {
               console.log(error);
@@ -157,7 +168,8 @@ function ChatPage() {
         }
       }
     }
-  }
+}
+  });
 
   const messagesEndRef = useRef(null);
 
@@ -169,22 +181,9 @@ function ChatPage() {
     console.log("Ref:", messagesEndRef);
   };
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
-        event.preventDefault();
-        handleSendMessage();
-      }
-    };
-    document.addEventListener("keydown", listener);
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  });
-
   const handleNewMessageChange = (event) => {
+    setCallApi(false);
     setNewMessage(event.target.value, user.username);
-    console.log(event.target.value);
   };
 
   const handleSendMessage = () => {
@@ -192,44 +191,38 @@ function ChatPage() {
     sendMessage(newMessage, user.username, timestamp);
     setNewMessage("");
     scrollToBottom();
-    setRoomCount(0);
-
-    console.log("SendMesseges::",messages);
+    setCallApi(true);
 
     const body = {
-      text: newMessage,
-      userId: user.id,
-      username: user.username,
-      topicId: selectedTopics.currentChatTopic.topic.id,
-      timestamp: timestamp,
-    };
+        text: newMessage,
+        userId: user.id,
+        username: user.username,
+        topicId: selectedTopics.currentChatTopic.topic.id,
+        timestamp: timestamp,
+      };
 
-    // try {
-    //   debugger;
-    //   const res = fetch("/api/messages", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(body),
-    //   });
-    //   if (res.status === 200) {
-    //     debugger;
-    //     console.log(res);
-    //   } else {
-    //     throw new Error(res.text());
-    //   }
-    // } catch (error) {
-    //   console.error("An unexpected error happened occurred:", error);
-    //   setErrorMsg(error.message);
-    // }
+    try {
+      const res = fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 200) {
+        debugger;
+        console.log(res);
+      } else {
+        throw new Error(res.text());
+      }
+    } catch (error) {
+      console.error("An unexpected error happened occurred:", error);
+      setErrorMsg(error.message);
+    }
+
+    console.log("SendMesseges::", messages);
   };
 
   return (
     <div className={styles.width_100}>
-      {/* <div className={styles.topic}>
-        <button onClick={() => createRoom("JavaScript")}> JavaScript </button>
-        <button onClick={() => createRoom("React")}> React </button>
-        <button onClick={() => createRoom("Angular")}> Angular </button>
-      </div> */}
       <ChatBody
         roomId={roomId}
         messages={messages}

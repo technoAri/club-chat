@@ -42,7 +42,7 @@ export const setUserTopics = (userId) => async (dispatch) => {
       });
       dispatch({
         type: TYPE.SET_CURRENTCHATTOPIC,
-        payload: response.data.result[0].topic.name,
+        payload: response.data.result[0],
       });
     }
   } catch (err) {

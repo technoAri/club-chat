@@ -131,44 +131,44 @@ function ChatPage() {
   console.log("selectedTopics", selectedTopics);
 
   useEffect(() => {
-      if (shouldCallApi) { 
-    if (selectedTopics.currentChatTopic.topic) {
-      createRoom(selectedTopics.currentChatTopic.topic.name);
-      console.log(
-        "selectedTopics::",
-        selectedTopics.currentChatTopic.topic.name
-      );
-
+    if (shouldCallApi) {
       if (selectedTopics.currentChatTopic.topic) {
-        try {
-          fetch(
-            `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
-            }
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              if (messages.length === 0) {
-                for (let i = 0; i < data.messages.length; i++) {
-                  data.messages[i].ownedByCurrentUser =
-                    data.messages[i].userId === user.id;
-                }
-                setMessages(data.messages);
-                console.log("messages::", data.messages);
+        createRoom(selectedTopics.currentChatTopic.topic.name);
+        console.log(
+          "selectedTopics::",
+          selectedTopics.currentChatTopic.topic.name
+        );
+
+        if (selectedTopics.currentChatTopic.topic) {
+          try {
+            fetch(
+              `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
+              {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
               }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } catch (error) {
-          console.error("An unexpected error occurred:", error);
-          setErrorMsg(error.message);
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                if (messages.length === 0) {
+                  for (let i = 0; i < data.messages.length; i++) {
+                    data.messages[i].ownedByCurrentUser =
+                      data.messages[i].userId === user.id;
+                  }
+                  setMessages(data.messages);
+                  console.log("messages::", data.messages);
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } catch (error) {
+            console.error("An unexpected error occurred:", error);
+            setErrorMsg(error.message);
+          }
         }
       }
     }
-}
   });
 
   const messagesEndRef = useRef(null);
@@ -194,12 +194,12 @@ function ChatPage() {
     setCallApi(true);
 
     const body = {
-        text: newMessage,
-        userId: user.id,
-        username: user.username,
-        topicId: selectedTopics.currentChatTopic.topic.id,
-        timestamp: timestamp,
-      };
+      text: newMessage,
+      userId: user.id,
+      username: user.username,
+      topicId: selectedTopics.currentChatTopic.topic.id,
+      createdAt: timestamp,
+    };
 
     try {
       const res = fetch("/api/messages", {

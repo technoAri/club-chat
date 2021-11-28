@@ -126,7 +126,7 @@ function ChatPage() {
 
   const selectedTopics = useSelector((state) => state.topics);
   console.log("selectedTopics", selectedTopics);
-  if (selectedTopics.currentChatTopic.topic) {
+  if (selectedTopics && selectedTopics.currentChatTopic && selectedTopics.currentChatTopic.topic) {
     if (roomCount === 0) {
       setRoomCount(1);
       createRoom(selectedTopics.currentChatTopic.topic.name);

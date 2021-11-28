@@ -124,6 +124,7 @@ function ChatPage() {
   const createRoom = (room) => {
     setRoomId(room);
 
+    console.log("roomid::", room)
     if (errorMsg) setErrorMsg("");
   };
 
@@ -132,42 +133,45 @@ function ChatPage() {
 
   useEffect(() => {
     if (shouldCallApi) {
-      if (selectedTopics.currentChatTopic.topic) {
-        createRoom(selectedTopics.currentChatTopic.topic.name);
-        console.log(
-          "selectedTopics::",
-          selectedTopics.currentChatTopic.topic.name
-        );
-
-        if (selectedTopics.currentChatTopic.topic) {
-          try {
-            fetch(
-              `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
-              {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-              }
-            )
-              .then((response) => response.json())
-              .then((data) => {
-                if (messages.length === 0) {
-                  for (let i = 0; i < data.messages.length; i++) {
-                    data.messages[i].ownedByCurrentUser =
-                      data.messages[i].userId === user.id;
+        if (selectedTopics.currentChatTopic) {
+            if (selectedTopics.currentChatTopic.topic) {
+                createRoom(selectedTopics.currentChatTopic.topic.name);
+                console.log(
+                  "selectedTopics::",
+                  selectedTopics.currentChatTopic.topic.name
+                );
+        
+                if (selectedTopics.currentChatTopic.topic) {
+                  try {
+                    fetch(
+                      `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
+                      {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                      }
+                    )
+                      .then((response) => response.json())
+                      .then((data) => {
+                        if (messages.length === 0) {
+                          for (let i = 0; i < data.messages.length; i++) {
+                            data.messages[i].ownedByCurrentUser =
+                              data.messages[i].userName === user.username;
+                          }
+                          setMessages(data.messages);
+                          console.log("messages::", data.messages);
+                        }
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  } catch (error) {
+                    console.error("An unexpected error occurred:", error);
+                    setErrorMsg(error.message);
                   }
-                  setMessages(data.messages);
-                  console.log("messages::", data.messages);
                 }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          } catch (error) {
-            console.error("An unexpected error occurred:", error);
-            setErrorMsg(error.message);
-          }
+              }
         }
-      }
+      
     }
   });
 

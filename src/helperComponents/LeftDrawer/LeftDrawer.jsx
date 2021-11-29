@@ -46,7 +46,7 @@ export default function LeftDrawer() {
     );
 
     const { isLoaded = false, profileData } = userProfile;
-
+    
     function openModal() {
         setIsOpen(true);
     }

@@ -83,7 +83,7 @@ export default function ChatHeader() {
                             ))}
                         </div>}
                 </div>
-                <div className={styles.chatheaderlogout}>Logout</div>
+                <a className={styles.chatheaderlogout} href="/api/logout">Logout</a>
             </div>
             {modalIsOpen && (<ConfirmModal props={{ modalIsOpen, closeModal, topicItem, user: { ...user } }} />)}
             {declineModal && (<DeclineModal props={{ declineModal, setDeclineModal }} />)}

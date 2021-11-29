@@ -14,17 +14,18 @@ function ChatBody({
   handleNewMessageChange,
   handleSendMessage,
   messagesEndRef,
+  dpLink,
   timestamp,
 }) {
   const _handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      console.log('do validate');
+    if (e.key === "Enter") {
+      console.log("do validate");
       e.preventDefault();
       if (newMessage.length > 0) {
         handleSendMessage();
       }
     }
-  }
+  };
   return (
     <div className={styles.chatRoomContainer}>
       <h1 className={styles.roomName}>Room: {roomId}</h1>
@@ -40,10 +41,11 @@ function ChatBody({
             >
               <div>
                 {/* <Image src={"logo"} width={40} height={40} /> */}
-                <img
-                  src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                <img className={styles.profileImg} src={`/assets/${message.dpLink}.png`}></img>
+                {/* <img
+                  src="/assets/avatar2.png"
                   className={styles.profileImg}
-                ></img>
+                ></img> */}
               </div>
               <div>
                 <div
@@ -55,32 +57,35 @@ function ChatBody({
                 >
                   <li
                     // key={i}
-                    className={`${styles.messageItem} ${message.ownedByCurrentUser
-                      ? styles.myUsername
-                      : styles.otherUsername
-                      }`}
+                    className={`${styles.messageItem} ${
+                      message.ownedByCurrentUser
+                        ? styles.myUsername
+                        : styles.otherUsername
+                    }`}
                   >
                     {message.userName}
                   </li>
                   <li
                     // key={i}
-                    className={`${styles.messageItem} ${message.ownedByCurrentUser
-                      ? styles.timestamp
-                      : styles.timestamp
-                      }`}
+                    className={`${styles.messageItem} ${
+                      message.ownedByCurrentUser
+                        ? styles.timestamp
+                        : styles.timestamp
+                    }`}
                   >
-                    {message.timestamp}
+                    {message.createdAt}
                   </li>
                 </div>
 
                 <li
                   //   key={i}
-                  className={`${styles.messageItem} ${message.ownedByCurrentUser
-                    ? styles.myMessage
-                    : styles.receivedMessage
-                    }`}
+                  className={`${styles.messageItem} ${
+                    message.ownedByCurrentUser
+                      ? styles.myMessage
+                      : styles.receivedMessage
+                  }`}
                 >
-                  {message.body}
+                  {message.text}
                 </li>
                 <div ref={messagesEndRef} />
               </div>
@@ -109,7 +114,7 @@ function ChatPage() {
   var { messages, sendMessage, setMessages } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [roomCount, setRoomCount] = useState(0);
+  var [shouldCallApi, setCallApi] = useState(true);
 
   const user = useUser();
   //   console.log("user::", user)
@@ -121,63 +126,62 @@ function ChatPage() {
   const createRoom = (room) => {
     setRoomId(room);
 
+    console.log("roomid::", room);
     if (errorMsg) setErrorMsg("");
   };
 
   const selectedTopics = useSelector((state) => state.topics);
   console.log("selectedTopics", selectedTopics);
-  if (selectedTopics && selectedTopics.currentChatTopic && selectedTopics.currentChatTopic.topic) {
-    if (roomCount === 0) {
-      setRoomCount(1);
-      createRoom(selectedTopics.currentChatTopic.topic.name);
-      console.log(
-        "selectedTopics::",
-        selectedTopics.currentChatTopic.topic.name
-      );
 
-      if (selectedTopics.currentChatTopic.topic) {
-        try {
-          fetch(
-            `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
-            {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
-            }
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              console.log(data);
-              if (messages.length === 0) {
-                setMessages([
-                  {
-                    "body": "hello!",
-                    "senderId": "HJBwl1LPk5es6jJVAAAv",
-                    "userName": "technoAri",
-                    "timestamp": "11/25/2021, 1:07:15 AM",
-                    "ownedByCurrentUser": true
-                  },
-                  {
-                    "body": "Hi",
-                    "senderId": "HJBwl1LPk5es6jJVAAAv",
-                    "userName": "technoAri",
-                    "timestamp": "11/25/2021, 1:07:20 AM",
-                    "ownedByCurrentUser": true
+  const userProfile = useSelector((state) => state.profile);
+
+//   const avatar = require(`../../../public/assets/${dpLink}.png`);
+
+  useEffect(() => {
+    if (shouldCallApi) {
+      const { isLoaded = false, profileData = {} } = userProfile;
+      console.log("UserProfile::", userProfile);
+      if (selectedTopics.currentChatTopic) {
+        if (selectedTopics.currentChatTopic.topic) {
+          createRoom(selectedTopics.currentChatTopic.topic.name);
+          console.log(
+            "selectedTopics::",
+            selectedTopics.currentChatTopic.topic.name
+          );
+
+          if (selectedTopics.currentChatTopic.topic) {
+            try {
+              fetch(
+                `/api/messages?topicId=${selectedTopics.currentChatTopic.topic.id}`,
+                {
+                  method: "GET",
+                  headers: { "Content-Type": "application/json" },
+                }
+              )
+                .then((response) => response.json())
+                .then((data) => {
+                  if (messages.length === 0) {
+                    for (let i = 0; i < data.messages.length; i++) {
+                      data.messages[i].ownedByCurrentUser =
+                        data.messages[i].userName === user.username;
+                    }
+                    setMessages(data.messages);
+                    scrollToBottom();
+                    console.log("messages::", data.messages);
                   }
-                ])
-                console.log("messages::", messages);
-              }
-              //   messages = data.messages;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } catch (error) {
-          console.error("An unexpected error occurred:", error);
-          setErrorMsg(error.message);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            } catch (error) {
+              console.error("An unexpected error occurred:", error);
+              setErrorMsg(error.message);
+            }
+          }
         }
       }
     }
-  }
+  });
 
   const messagesEndRef = useRef(null);
 
@@ -189,67 +193,57 @@ function ChatPage() {
     console.log("Ref:", messagesEndRef);
   };
 
-  // useEffect(() => {
-  //   const listener = (event) => {
-  //     if (event.code === "Enter" || event.code === "NumpadEnter") {
-  //       event.preventDefault();
-  //       handleSendMessage();
-  //     }
-  //   };
-  //   document.addEventListener("keydown", listener);
-  //   return () => {
-  //     document.removeEventListener("keydown", listener);
-  //   };
-  // });
-
   const handleNewMessageChange = (event) => {
+    setCallApi(false);
     setNewMessage(event.target.value, user.username);
-    console.log(event.target.value);
   };
 
   const handleSendMessage = () => {
+    if (!userProfile.profileData.dpLink) {
+      userProfile.profileData.dpLink = "avatar";
+    }
     timestamp = new Date().toLocaleString();
-    sendMessage(newMessage, user.username, timestamp);
+    sendMessage(
+      newMessage,
+      user.username,
+      timestamp,
+      userProfile.profileData.dpLink
+    );
     setNewMessage("");
     scrollToBottom();
-    setRoomCount(0);
-
-    console.log("SendMesseges::", messages);
+    setCallApi(true);
 
     const body = {
       text: newMessage,
       userId: user.id,
       username: user.username,
       topicId: selectedTopics.currentChatTopic.topic.id,
-      timestamp: timestamp,
+      createdAt: timestamp,
+      dpLink: userProfile.profileData.dpLink,
     };
 
-    // try {
-    //   debugger;
-    //   const res = fetch("/api/messages", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(body),
-    //   });
-    //   if (res.status === 200) {
-    //     debugger;
-    //     console.log(res);
-    //   } else {
-    //     throw new Error(res.text());
-    //   }
-    // } catch (error) {
-    //   console.error("An unexpected error happened occurred:", error);
-    //   setErrorMsg(error.message);
-    // }
+    try {
+      const res = fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 200) {
+        debugger;
+        console.log(res);
+      } else {
+        throw new Error(res.text());
+      }
+    } catch (error) {
+      console.error("An unexpected error happened occurred:", error);
+      setErrorMsg(error.message);
+    }
+
+    console.log("SendMesseges::", messages);
   };
 
   return (
     <div className={styles.width_100}>
-      {/* <div className={styles.topic}>
-        <button onClick={() => createRoom("JavaScript")}> JavaScript </button>
-        <button onClick={() => createRoom("React")}> React </button>
-        <button onClick={() => createRoom("Angular")}> Angular </button>
-      </div> */}
       <ChatBody
         roomId={roomId}
         messages={messages}

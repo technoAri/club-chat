@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL_AYUSH")
+  url      = env("DATABASE_URL")
 }
 
 model users {
@@ -44,12 +44,12 @@ model usertopic {
 model message {
   id          String     @id @default(uuid())
   text        String
-  
-  user        users? @relation(fields: [userId], references: [id])
-  userId String
+  user        users? @relation(fields: [userName], references: [username])
+  userName String
   topics        topic? @relation(fields: [topicId], references: [id])
   topicId String
-  createdAt   DateTime   @default(now())
+  createdAt   String
+  dpLink String?
 }
 
 model profile {

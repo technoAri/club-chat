@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import NextModal from 'react-modal';
 import Image from "next/image";
-import styles from "./LeftDrawer.module.scss";
+import styles from "./leftdrawer.module.scss";
 import { createTopics } from '../../redux/action/topics.action';
 import cross from "../../../public/cross.svg";
 

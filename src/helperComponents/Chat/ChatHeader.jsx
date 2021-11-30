@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import styles from "./ChatMain.module.scss";
 import { searchTopic, clearSearchTopic } from "../../redux/action/topics.action";
 import { useSelector, useDispatch } from "react-redux";
-
+import logout from "../../../public/logout.svg";
+import cross from "../../../public/cross.svg";
 import ConfirmModal from '../LeftDrawer/ConfirmModal';
 import DeclineModal from '../LeftDrawer/DeclineModal';
 import AddTopicModal from '../LeftDrawer/AddTopicModal';
@@ -69,8 +70,10 @@ export default function ChatHeader() {
         <>
             <div className={styles.chatheader}>
                 <div className={styles.chatheadersearch}>
-                    <input type="text" className={styles.searchinput} value={searchText} onChange={(e) => setSearchText(e.target.value)} />
-                    {searchText.length > 0 && <span className={styles.crossbtn} onClick={() => setSearchText("")}>X</span>}
+                    <input type="text" className={styles.searchinput} placeholder="Search a topic" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+                    {searchText.length > 0 && <span className={styles.crossbtn} onClick={() => setSearchText("")}>
+                        <Image src={cross} alt="plus_icon" layout="intrinsic" width={20} height={20} />
+                    </span>}
                     {searchText.length > 3 &&
                         <div className={styles.chatsearchresult}>
                             {(searchResult && searchResult.length === 0) && <div onClick={() => setAddTopicModal(true)}>
@@ -83,7 +86,9 @@ export default function ChatHeader() {
                             ))}
                         </div>}
                 </div>
-                <a className={styles.chatheaderlogout} href="/api/logout">Logout</a>
+                <a className={styles.chatheaderlogout} href="/api/logout">
+                    <Image src={logout} alt="plus_icon" layout="intrinsic" width={35} height={35} />
+                </a>
             </div>
             {modalIsOpen && (<ConfirmModal props={{ modalIsOpen, closeModal, topicItem, user: { ...user } }} />)}
             {declineModal && (<DeclineModal props={{ declineModal, setDeclineModal }} />)}

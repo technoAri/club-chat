@@ -6,13 +6,14 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    border-right: 1px solid #b2ab8c;
+    background-color: #19181d;
+    border-right: 1px solid #a2a2a5;
     .logoDiv {
         width: 100%;
         min-height: 10%;
-        height: 135px;
+        height: 10%;
         display: block;
-        border-bottom: 1px solid #b2ab8c;
+        border-bottom: 1px solid #a2a2a5;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -21,7 +22,16 @@
         .logocover {
             position: relative;
             width: 60%;
-            height: 80%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            & > div {
+                width: 60%;
+                height: 100%;
+            }
         }
     }
     .profileName {
@@ -31,8 +41,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-bottom: 1px solid #b2ab8c;
+        border-bottom: 1px solid #a2a2a5;
         cursor: pointer;
+        & > span {
+            color: #a2a2a5;
+            font-size: 32px;
+            line-height: 32px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
     }
     .addtopic {
         width: 100%;
@@ -49,7 +66,7 @@
             padding: 0 3%;
             align-items: center;
             border: none;
-            background-color: #b2ab8c;
+            background-color: #3d3b47;
             border-radius: 12px;
             cursor: pointer;
             & > span {
@@ -59,23 +76,29 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
+                color: #a2a2a5;
                 & > span {
                     margin-left: 8px;
                     height: 80%;
                     width: 100%;
                     text-align: left;
+                    color: #a2a2a5;
+                    font-size: 18px;
+                    line-height: 18px;
+                    font-weight: 300;
                 }
             }
         }
     }
     .yourtopics {
         width: 100%;
-        min-height: 31%;
+        min-height: 50px;
+        max-height: 31%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 0 10%;
+        padding: 5px 10%;
         max-height: 30%;
         .yourtopicsheading {
             width: 100%;
@@ -86,7 +109,7 @@
             padding: 0 3%;
             align-items: center;
             border: none;
-            background-color: #b2ab8c;
+            background-color: #3d3b47;
             border-radius: 12px;
             & > span {
                 width: 100%;
@@ -99,6 +122,10 @@
                     margin-left: 8px;
                     width: 100%;
                     text-align: left;
+                    color: #a2a2a5;
+                    font-size: 18px;
+                    line-height: 18px;
+                    font-weight: 300;
                 }
             }
         }
@@ -112,11 +139,15 @@
             padding: 0 15%;
             overflow-y: auto;
             max-height: calc(100% - 42px);
-            height: calc(100% - 42px);
+            max-height: calc(100% - 42px);
             scrollbar-width: none;
             & > span {
                 margin-top: 15px;
                 cursor: pointer;
+                color: #a2a2a5;
+                font-size: 18px;
+                line-height: 18px;
+                font-weight: 300;
             }
         }
         .topicslist::-webkit-scrollbar {
@@ -130,7 +161,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 0 10%;
+        padding: 5px 10%;
         margin-top: 20px;
         height: 30%;
         .trendingtopicsheading {
@@ -142,7 +173,7 @@
             padding: 0 3%;
             align-items: center;
             border: none;
-            background-color: #b2ab8c;
+            background-color: #3d3b47;
             border-radius: 12px;
             & > span {
                 width: 100%;
@@ -155,6 +186,10 @@
                     margin-left: 8px;
                     width: 100%;
                     text-align: left;
+                    color: #a2a2a5;
+                    font-size: 18px;
+                    line-height: 18px;
+                    font-weight: 300;
                 }
             }
         }
@@ -172,6 +207,10 @@
             & > span {
                 margin-top: 15px;
                 cursor: pointer;
+                color: #a2a2a5;
+                font-size: 18px;
+                line-height: 18px;
+                font-weight: 300;
             }
         }
         .trendingtopicslist::-webkit-scrollbar {
@@ -182,41 +221,47 @@
 
 .closebtn {
     width: 100%;
-    height: 33%;
+    height: 30%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
+    background-color: transparent;
     & > button {
-        width: 32px;
-        height: 32px;
-        border-radius: 16px;
-        background-color: #1597e5;
+        width: 35px;
+        height: 35px;
         border: none;
-        color: #fff;
-        font-size: 24px;
-        font-weight: 100;
+        background-color: transparent;
+        cursor: pointer;
     }
 }
 
 .modaltext {
     width: 100%;
-    height: 33%;
+    height: 37%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     font-size: 26px;
     font-weight: 100;
+    color: #a2a2a5;
     .inputtopic {
-        width: 80%;
-        height: 80%;
+        width: 90%;
+        height: 60%;
         border: none;
         outline: none;
-        background-color: #f2ebea;
         font-size: 18px;
+        padding: 0 5px;
+        background-color: #3d3b47;
+        border: 1px solid #4b494e;
+        color: #a2a2a5;
+        font-size: 18px;
+        line-height: 18px;
+        font-weight: 200;
+        letter-spacing: 1px;
         padding: 0 5px;
     }
 }
@@ -228,13 +273,15 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
+    padding-right: 5%;
     & > button {
         width: 126px;
         height: 30px;
-        background-color: #1597e5;
+        background-color: #3d3b47;
         border: none;
-        color: #fff;
+        color: #a2a2a5;
         font-size: 18px;
         font-weight: 100;
+        margin-left: 8px;
     }
 }

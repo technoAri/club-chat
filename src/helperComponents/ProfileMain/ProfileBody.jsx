@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 import styles from "./ProfileMain.module.scss";
 import UpdateDPModal from "./UpdateDPModal";
 import { useSelector } from "react-redux";
+import camera from "../../../public/camera.svg";
 
 export default function ProfileBody({ props }) {
     const { username, email, totalChat, totalTopicsFollowing, dpLink } = props;
-    
+
     const userTopicsLists = useSelector(
         (state) => state.topics.userTopics
     );
@@ -42,7 +43,7 @@ export default function ProfileBody({ props }) {
                     </div>
                 </div>
                 <div className={styles.profilebodybottom}>
-                    <div className={styles.profilebodybottomheading}>Topics:</div>
+                    <div className={styles.profilebodybottomheading}>Topics Following:</div>
                     <div className={styles.topicstack}>
                         {userTopicsLists.map((item, indx) => (
                             <div className={styles.chipstyle}

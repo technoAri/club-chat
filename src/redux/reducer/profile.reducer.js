@@ -23,7 +23,6 @@ const profile = (
         ...temp,
         dpLink: action.payload
       }
-      console.log("updatedState", updatedState);
     return {
       ...state,
       isLoaded: true,

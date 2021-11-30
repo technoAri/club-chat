@@ -4,6 +4,7 @@ import NextModal from 'react-modal';
 import Image from "next/image";
 import styles from "./LeftDrawer.module.scss";
 import { createTopics } from '../../redux/action/topics.action';
+import cross from "../../../public/cross.svg";
 
 const customStyles = {
     content: {
@@ -19,12 +20,15 @@ const customStyles = {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
+        backgroundColor: '#19181d',
+        margin: '0',
+        padding: '0',
     },
 };
 
 export default function UpdateDPModal({ props }) {
     const dispatch = useDispatch();
-    const { addTopicModal, setAddTopicModal, searchTopicName="", setSearchText=(text) => {} } = props;
+    const { addTopicModal, setAddTopicModal, searchTopicName = "", setSearchText = (text) => { } } = props;
     const [topicName, setTopicName] = useState(searchTopicName);
     const createNewTopic = () => {
         if (topicName.length > 3) {
@@ -44,7 +48,9 @@ export default function UpdateDPModal({ props }) {
             >
                 <>
                     <div className={styles.closebtn}>
-                        <button onClick={() => setAddTopicModal(false)}>X</button>
+                        <button onClick={() => setAddTopicModal(false)}>
+                            <Image src={cross} alt="plus_icon" layout="intrinsic" width={35} height={35} />
+                        </button>
                     </div>
                     <div className={styles.modaltext}>
                         <input type="text" className={styles.inputtopic} value={topicName} onChange={(e) => setTopicName(e.target.value)} />

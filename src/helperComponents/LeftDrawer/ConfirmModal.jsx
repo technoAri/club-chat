@@ -4,6 +4,7 @@ import NextModal from 'react-modal';
 import Image from "next/image";
 import styles from "./LeftDrawer.module.scss";
 import { updateUserTopics } from '../../redux/action/topics.action';
+import cross from "../../../public/cross.svg";
 
 const customStyles = {
     content: {
@@ -19,6 +20,9 @@ const customStyles = {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
+        backgroundColor: '#19181d',
+        margin: '0',
+        padding: '0',
     },
 };
 
@@ -45,7 +49,9 @@ export default function UpdateDPModal({ props }) {
                 {topicItem !== null &&
                     <>
                         <div className={styles.closebtn}>
-                            <button onClick={closeModal}>X</button>
+                            <button onClick={closeModal}>
+                                <Image src={cross} alt="plus_icon" layout="intrinsic" width={35} height={35} />
+                            </button>
                         </div>
                         <div className={styles.modaltext}>
                             {`Do you want to add ${topicItem.name}?`}

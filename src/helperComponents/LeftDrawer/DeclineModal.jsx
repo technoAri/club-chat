@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import NextModal from 'react-modal';
 import Image from "next/image";
 import styles from "./LeftDrawer.module.scss";
+import cross from "../../../public/cross.svg";
 
 const customStyles = {
     content: {
@@ -18,6 +19,9 @@ const customStyles = {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
+        backgroundColor: '#19181d',
+        margin: '0',
+        padding: '0',
     },
 };
 
@@ -33,7 +37,9 @@ export default function DeclineModal({ props }) {
             >
 
                 <div className={styles.closebtn}>
-                    <button onClick={() => setDeclineModal(false)}>X</button>
+                    <button onClick={() => setDeclineModal(false)}>
+                        <Image src={cross} alt="plus_icon" layout="intrinsic" width={35} height={35} />
+                    </button>
                 </div>
                 <div className={styles.modaltext}>
                     {`This topic is already added.`}

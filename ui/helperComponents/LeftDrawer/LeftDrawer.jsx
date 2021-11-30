@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import PropTypes from "prop-types";
 import logo from "../../../public/logo.svg";
 import plus from "../../../public/icons8-plus.svg";
 import trending from "../../../public/hashtag.svg";
-import styles from "./LeftDrawer.module.scss";
+import styles from "./leftdrawer.module.scss";
 import { setUserTopics, setTrendingTopics, setCurrentChatTopic } from "../../redux/action/topics.action";
 import { getProfileData } from "../../redux/action/profile.action";
 import { useSelector, useDispatch } from "react-redux";
@@ -46,7 +45,7 @@ export default function LeftDrawer() {
     );
 
     const { isLoaded = false, profileData } = userProfile;
-    
+
     function openModal() {
         setIsOpen(true);
     }

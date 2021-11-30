@@ -3,7 +3,7 @@ import useChat from "../../../hooks/useChat";
 import { useUser } from "../../../lib/hooks";
 import styles from "./ChatMain.module.scss";
 import Image from "next/image";
-import sendIcon from "../../../public/send-button.png";
+import sendIcon from "../../../public/send-message.png";
 import { useSelector } from "react-redux";
 import Router from "next/router";
 
@@ -102,7 +102,7 @@ function ChatBody({
           onKeyDown={_handleKeyDown}
         />
         <div className={styles.sendBtn} onClick={handleSendMessage}>
-          <Image src={sendIcon} width={25} height={25} />
+          <Image src={sendIcon} width={25} height={25} className={styles.saturate}/>
         </div>
       </div>
     </div>

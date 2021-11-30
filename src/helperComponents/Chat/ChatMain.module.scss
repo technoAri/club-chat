@@ -164,6 +164,7 @@
 
 .roomName {
     margin-top: 0;
+    color: blanchedalmond;
 }
 
 .messagesContainer {
@@ -211,6 +212,7 @@
     padding: 1px;
     font-weight: bold;
     font-size: 14px;
+    color: blanchedalmond;
 }
 
 .otherUsername {
@@ -219,10 +221,11 @@
     font-weight: bold;
     font-size: 14px;
     margin-left: 0px;
+    color: blanchedalmond;
 }
 
 .timestamp {
-    color: black;
+    color: blanchedalmond;
     padding: 1px;
     margin-left: -4px;
     font-size: 14px;
@@ -259,6 +262,7 @@
 .newMessageInputField {
     min-height: 70px;
     line-height: 2.5;
+    color: blanchedalmond;
 }
 
 .chatMessegesContainer {
@@ -283,6 +287,7 @@
     border: 1px solid;
     border-radius: 4px;
     cursor: pointer;
+    color: #a2a2a5;
 }
 
 .logoutText {
@@ -300,3 +305,5 @@
     cursor: pointer;
     color: #CCC;
 }
+
+.saturate { filter: saturate(3); }

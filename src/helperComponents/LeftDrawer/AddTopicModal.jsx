@@ -8,7 +8,7 @@ import cross from "../../../public/cross.svg";
 
 const customStyles = {
     content: {
-        top: '50%',
+        top: '35%',
         left: '50%',
         right: 'auto',
         bottom: 'auto',
@@ -24,6 +24,9 @@ const customStyles = {
         margin: '0',
         padding: '0',
     },
+    overlay: {
+        backgroundColor: 'rgb(25, 24, 29, 0.75)',
+    }
 };
 
 export default function UpdateDPModal({ props }) {

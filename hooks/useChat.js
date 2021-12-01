@@ -3,7 +3,7 @@ import socketIOClient from "socket.io-client";
 import { useUser } from "../lib/hooks";
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const SOCKET_SERVER_URL = parseInt(process.env.PORT, 10) ? 'https://club-chat.herokuapp.com' : "http://localhost:3000";
+const SOCKET_SERVER_URL = typeof window === 'undefined' ? '' : window.location.origin;
 
 const useChat = (roomId) => {
   const [messages, setMessages] = useState([]);

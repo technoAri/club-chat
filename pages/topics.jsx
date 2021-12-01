@@ -1,5 +1,5 @@
 import React from 'react';
-import TopicsComponent from '../src/components/ToipcsComponents/TopicsComponent';
+import TopicsComponent from '../ui/components/ToipcsComponents/TopicsComponent';
 
 export default function topics() {
     return (

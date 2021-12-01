@@ -40,10 +40,10 @@ function ChatBody({
               }
             >
               <div>
-                {/* <Image src={"logo"} width={40} height={40} /> */}
+                {/* <Image ui={"logo"} width={40} height={40} /> */}
                 <img className={styles.profileImg} src={`/assets/${message.dpLink}.png`}></img>
                 {/* <img
-                  src="/assets/avatar2.png"
+                  ui="/assets/avatar2.png"
                   className={styles.profileImg}
                 ></img> */}
               </div>

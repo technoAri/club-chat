@@ -1,4 +1,4 @@
-import ProfileComponent from '../src/components/ProfileComponent/ProfileComponent';
+import ProfileComponent from '../ui/components/ProfileComponent/ProfileComponent';
 
 export default function profile() {
     return (

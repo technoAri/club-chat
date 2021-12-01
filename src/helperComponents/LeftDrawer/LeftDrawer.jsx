@@ -15,7 +15,7 @@ import AddTopicModal from './AddTopicModal';
 import { useUser } from "../../../lib/hooks";
 import Loader from 'react-loader';
 
-export default function LeftDrawer() {
+export default function LeftDrawer({ props }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const [userState, setUserState] = useState(null);
@@ -32,7 +32,7 @@ export default function LeftDrawer() {
     const [addTopicModal, setAddTopicModal] = useState(false);
     const [topicItem, setTopicItem] = useState(null);
     const [currentChatTopicItem, setCurrentChatTopicItem] = useState(null);
-
+    const { toggleKey } = props;
     useEffect(() => {
         if (userState) {
             dispatch(setUserTopics(user.id));
@@ -46,7 +46,7 @@ export default function LeftDrawer() {
     );
 
     const { isLoaded = false, profileData } = userProfile;
-    
+
     function openModal() {
         setIsOpen(true);
     }
@@ -88,7 +88,7 @@ export default function LeftDrawer() {
     return (
         <>
             {!userState ? <Loader /> :
-                <div className={styles.leftNav}>
+                <div className={`${styles.leftNav} ${toggleKey ? styles.leftNavExpand : styles.leftNavCollapse}`}>
                     <div className={styles.logoDiv}>
                         <div className={styles.logocover}>
                             <Image src={logo} alt="Clubchat_logo" layout="responsive" width={211} height={175} />

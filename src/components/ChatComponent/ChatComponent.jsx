@@ -4,10 +4,11 @@ import LeftDrawer from "../../helperComponents/LeftDrawer/LeftDrawer";
 import ChatMain from "../../helperComponents/Chat/ChatMain";
 
 function ChatComponent() {
+  const [toggleKey, setTogglekey] = useState(false);
   return (
     <div className={styles.chatbody}>
-      <LeftDrawer />
-      <ChatMain />
+      <LeftDrawer  props={{ toggleKey }} />
+      <ChatMain props={{ toggleKey, setTogglekey }} />
     </div>
   );
 }

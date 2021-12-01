@@ -5,10 +5,11 @@ import styles from "./ChatMain.module.scss";
 import ChatHeader from "./ChatHeader";
 import ChatBody from "./ChatBody";
 
-export default function ChatMain() {
+export default function ChatMain({props}) {
+    const { toggleKey, setTogglekey } = props;
     return (
         <div className={styles.chatmain}>
-            <ChatHeader />
+            <ChatHeader props={{ toggleKey, setTogglekey }}/>
             <ChatBody />
         </div>
     )

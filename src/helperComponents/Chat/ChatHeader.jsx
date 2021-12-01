@@ -10,7 +10,7 @@ import ConfirmModal from '../LeftDrawer/ConfirmModal';
 import DeclineModal from '../LeftDrawer/DeclineModal';
 import AddTopicModal from '../LeftDrawer/AddTopicModal';
 
-export default function ChatHeader() {
+export default function ChatHeader({ props }) {
     const [searchText, setSearchText] = useState('');
     const [modalIsOpen, setIsOpen] = useState(false);
     const [declineModal, setDeclineModal] = useState(false);
@@ -18,6 +18,7 @@ export default function ChatHeader() {
     const [topicItem, setTopicItem] = useState(null);
     const [user, setUser] = useState(null);
     const dispatch = useDispatch();
+    const { toggleKey, setTogglekey } = props;
 
     const searchResult = useSelector(
         (state) => state.topics.topicSearchResult
@@ -69,10 +70,15 @@ export default function ChatHeader() {
     return (
         <>
             <div className={styles.chatheader}>
+            <div className={styles.togglekey} onClick={() => setTogglekey(!toggleKey)}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
                 <div className={styles.chatheadersearch}>
                     <input type="text" className={styles.searchinput} placeholder="Search a topic" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
                     {searchText.length > 0 && <span className={styles.crossbtn} onClick={() => setSearchText("")}>
-                        <Image src={cross} alt="plus_icon" layout="intrinsic" width={20} height={20} />
+                        <Image src={cross} alt="cross_icon" layout="intrinsic" width={20} height={20} />
                     </span>}
                     {searchText.length > 3 &&
                         <div className={styles.chatsearchresult}>

@@ -45,7 +45,6 @@ const Signup = () => {
         body: JSON.stringify(body),
       })
       if (res.status === 200) {
-        debugger;
         Router.push('/login')
       } else {
         throw new Error(await res.text())

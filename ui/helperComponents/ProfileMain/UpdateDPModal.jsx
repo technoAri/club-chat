@@ -46,7 +46,7 @@ export default function UpdateDPModal({ props }) {
     const { modalIsOpen, closeModal } = props;
     const { user } = useUser();
     const updateAvatar = (avatar) => {
-        dispatch(updateProfileAvatar(user.id, avatar));
+        dispatch(updateProfileAvatar(user.id, avatar, user.username));
     }
     useEffect(() => {
         if (modalIsOpen) {

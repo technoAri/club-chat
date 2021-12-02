@@ -26,24 +26,20 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-
-      if (res.status === 200) {
-        debugger;
-        Router.push('/chat')
-      } else {
-        throw new Error(await res.text())
-      }
-    } catch (error) {
-      console.error('An unexpected error happened occurred:', error)
-      if(error && error.message) {
-        setErrorMsg(error.message);
-      } else {
-        setErrorMsg(error.Error);
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+  
+        if (res.status === 200) {
+          Router.push('/chat')
+        } else {
+          throw new Error(await res.text())
+        }
+      } catch (error) {
+        console.error('An unexpected error happened occurred:', error)
+        setErrorMsg(error.message)
       }
     }
   }

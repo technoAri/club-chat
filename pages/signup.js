@@ -8,7 +8,7 @@ import Image from "next/image";
 import Logo from "../public/logo.svg";
 
 const Signup = () => {
-    useUser({ redirectTo: '/chat', redirectIfFound: true })
+    useUser({ redirectTo: '/login', redirectIfFound: true })
 
     const [errorMsg, setErrorMsg] = useState('')
 
@@ -43,7 +43,6 @@ const Signup = () => {
                 body: JSON.stringify(body),
             })
             if (res.status === 200) {
-                debugger;
                 Router.push('/login')
             } else {
                 throw new Error(await res.text())

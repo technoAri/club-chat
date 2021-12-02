@@ -41,9 +41,7 @@ const Login = () => {
         console.error('An unexpected error happened occurred:', error)
         setErrorMsg(error.message)
       }
-    }
   }
-  console.log("errorMessage", typeof errorMsg);
   return (
     <Layout>
       <div className="logincontainer">

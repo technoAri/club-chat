@@ -7,11 +7,11 @@ import { useUser } from "../../../lib/hooks";
 
 function ProfileComponent() {
   //const user = useUser('/login', '/profile');
-
+  const [toggleKey, setTogglekey] = useState(false);
   return (
     <div className={styles.profilebody}>
-      <LeftDrawer />
-      <ProfileMain />
+      <LeftDrawer props={{ toggleKey, setTogglekey }}/>
+      <ProfileMain props={{ toggleKey, setTogglekey }} />
     </div>
   );
 }

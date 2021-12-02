@@ -24,13 +24,16 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        width: '50%',
+        maxWidth: '80%',
         height: '50%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
+    overlay: {
+        backgroundColor: 'rgb(25, 24, 29, 0.95)',
+    }
 };
 
 export default function UpdateDPModal({ props }) {

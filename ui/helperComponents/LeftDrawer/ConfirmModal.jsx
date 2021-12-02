@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import NextModal from 'react-modal';
 import Image from "next/image";
-import styles from "./LeftDrawer.module.scss";
+import styles from "./leftdrawer.module.scss";
 import { updateUserTopics } from '../../redux/action/topics.action';
 import cross from "../../../public/cross.svg";
 
@@ -15,6 +15,7 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         width: '425px',
+        maxWidth: '80%',
         height: '190px',
         display: 'flex',
         flexDirection: 'column',
@@ -25,7 +26,7 @@ const customStyles = {
         padding: '0',
     },
     overlay: {
-        backgroundColor: 'rgb(25, 24, 29, 0.75)',
+        backgroundColor: 'rgb(25, 24, 29, 0.95)',
     }
 };
 

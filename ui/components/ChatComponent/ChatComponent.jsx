@@ -7,7 +7,7 @@ function ChatComponent() {
   const [toggleKey, setTogglekey] = useState(false);
   return (
     <div className={styles.chatbody}>
-      <LeftDrawer  props={{ toggleKey }} />
+      <LeftDrawer  props={{ toggleKey, setTogglekey }} />
       <ChatMain props={{ toggleKey, setTogglekey }} />
     </div>
   );

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import PropTypes from "prop-types";
 import logo from "../../../public/logo.svg";
 import plus from "../../../public/icons8-plus.svg";
 import trending from "../../../public/hashtag.svg";
-import styles from "./LeftDrawer.module.scss";
+import cross from "../../../public/cross.svg";
+import styles from "./leftdrawer.module.scss";
 import { setUserTopics, setTrendingTopics, setCurrentChatTopic } from "../../redux/action/topics.action";
 import { getProfileData } from "../../redux/action/profile.action";
 import { useSelector, useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ export default function LeftDrawer({ props }) {
     const [addTopicModal, setAddTopicModal] = useState(false);
     const [topicItem, setTopicItem] = useState(null);
     const [currentChatTopicItem, setCurrentChatTopicItem] = useState(null);
-    const { toggleKey } = props;
+    const { toggleKey, setTogglekey } = props;
     useEffect(() => {
         if (userState) {
             dispatch(setUserTopics(user.id));
@@ -85,11 +85,20 @@ export default function LeftDrawer({ props }) {
         return !check;
     }
 
+    useEffect(() => {
+        if (modalIsOpen || declineModal || addTopicModal) {
+            setTogglekey(false);
+        }
+    }, [modalIsOpen, declineModal, addTopicModal]);
+
     return (
         <>
             {!userState ? <Loader /> :
                 <div className={`${styles.leftNav} ${toggleKey ? styles.leftNavExpand : styles.leftNavCollapse}`}>
                     <div className={styles.logoDiv}>
+                        {toggleKey && <div className={styles.toggleCrossBtn} onClick={() => setTogglekey(false)}>
+                            <Image src={cross} alt="plus_icon" layout="intrinsic" width={35} height={35} />
+                        </div>}
                         <div className={styles.logocover}>
                             <Image src={logo} alt="Clubchat_logo" layout="responsive" width={211} height={175} />
                         </div>

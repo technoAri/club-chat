@@ -30,11 +30,8 @@ export default function ProfileBody({ props }) {
                     <div className={styles.profileinfo}>
                         <div>
                             <div className={styles.username}><span>{username}</span></div>
-                            <br />
                             <div className={styles.email}><span>{email}</span></div>
-                            <br /><br />
                             <div className={styles.totalchat}><span>Total Chat - {totalChat}</span></div>
-                            <br />
                             <div className={styles.totalfollowing}><span>Total Topics Following - {totalTopicsFollowing}</span></div>
                         </div>
                     </div>
@@ -43,7 +40,7 @@ export default function ProfileBody({ props }) {
                     </div>
                 </div>
                 <div className={styles.profilebodybottom}>
-                    <div className={styles.profilebodybottomheading}>Topics Following:</div>
+                    <div className={styles.profilebodybottomheading}>Topics Following</div>
                     <div className={styles.topicstack}>
                         {userTopicsLists.map((item, indx) => (
                             <div className={styles.chipstyle}

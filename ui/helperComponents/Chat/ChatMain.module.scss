@@ -1,5 +1,5 @@
 .chatmain {
-    width: 100%;
+    width: 80%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -28,11 +28,10 @@
             flex-wrap: nowrap;
             justify-content: flex-start;
             align-items: center;
-            border-bottom: 1px solid #b2ab8c;
+            // border-bottom: 1px solid #b2ab8c;
             .searchinput {
                 width: 80%;
-                height: 40%;
-                border: none;
+                height: 40px;
                 outline: none;
                 font-size: 18px;
                 padding: 0 5px;
@@ -43,6 +42,14 @@
                 line-height: 18px;
                 font-weight: 200;
                 letter-spacing: 1px;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -ms-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                &:focus {
+                    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+                    border: 1px solid #1597e5;
+                }
             }
             .chatsearchresult {
                 position: absolute;
@@ -140,7 +147,7 @@
 
 .width_100 {
     width: 100%;
-    height: 100%;
+    height: 90%;
 }
 
 .heading {
@@ -154,19 +161,17 @@
 
 .chatRoomContainer {
     position: relative;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     display: flex;
     flex-direction: column;
-    margin: 16px;
-    height: 90%;
+    height: 100%;
     max-height: 90%;
 }
 
 .roomName {
+    width: 100%;
     margin-top: 0;
+    color: #a2a2a5;
+    text-align: center;
 }
 
 .messagesContainer {
@@ -174,8 +179,6 @@
     // min-height: 450px;
     height: 100%;
     overflow: auto;
-    border: 1px solid black;
-    border-radius: 7px 7px 0 0;
 }
 
 .messagesList {
@@ -214,6 +217,7 @@
     padding: 1px;
     font-weight: bold;
     font-size: 14px;
+    color: blanchedalmond;
 }
 
 .otherUsername {
@@ -222,10 +226,11 @@
     font-weight: bold;
     font-size: 14px;
     margin-left: 0px;
+    color: blanchedalmond;
 }
 
 .timestamp {
-    color: black;
+    color: blanchedalmond;
     padding: 1px;
     margin-left: -4px;
     font-size: 14px;
@@ -262,6 +267,7 @@
 .newMessageInputField {
     min-height: 70px;
     line-height: 2.5;
+    color: blanchedalmond;
 }
 
 .chatMessegesContainer {
@@ -286,6 +292,7 @@
     border: 1px solid;
     border-radius: 4px;
     cursor: pointer;
+    color: #a2a2a5;
 }
 
 .logoutText {
@@ -306,6 +313,8 @@
 
 @media screen and (max-width: 770px) {
     .chatmain {
+        width: 100%;
+        height: 100%;
         .chatheader {
             padding: 0 2%;
             .togglekey {
@@ -331,9 +340,19 @@
                     width: 90%;
                 }
                 .chatsearchresult {
-                    width: 100%;
+                    width: 125%;
+                    overflow: hidden;
                 }
             }
         }
     }
+    .crossbtn {
+        position: absolute;
+        top: calc(50% - 12px);
+        left: calc(90% - 9px);
+    }
+}
+
+.saturate {
+    filter: saturate(3);
 }

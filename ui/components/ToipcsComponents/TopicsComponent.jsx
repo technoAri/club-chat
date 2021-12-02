@@ -75,7 +75,7 @@ export default function TopicsComponent({ props }) {
             ))}
           </div>
           <div className={styles.continuebtn}>
-            <button onClick={() => router.push('/chat')}>Continue</button>
+            <button onClick={() => router.push('/login')}>Continue</button>
           </div>
         </div>
       </div>

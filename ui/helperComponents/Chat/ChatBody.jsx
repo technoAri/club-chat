@@ -229,10 +229,9 @@ function ChatPage() {
         body: JSON.stringify(body),
       });
       if (res.status === 200) {
-        debugger;
         console.log(res);
       } else {
-        throw new Error(res.text());
+        throw new Error(res.text);
       }
     } catch (error) {
       console.error("An unexpected error happened occurred:", error);

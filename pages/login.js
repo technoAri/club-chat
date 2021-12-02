@@ -31,7 +31,6 @@ const Login = () => {
         })
   
         if (res.status === 200) {
-          debugger;
           Router.push('/chat')
         } else {
           throw new Error(await res.text())

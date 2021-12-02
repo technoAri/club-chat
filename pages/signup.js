@@ -8,7 +8,12 @@ import Image from "next/image";
 import Logo from "../public/logo.svg";
 
 const Signup = () => {
-    useUser({ redirectTo: '/login', redirectIfFound: true })
+  const { finished, hasUser = false, user, error } = useUser();
+  if (finished) {
+    if (hasUser && user) {
+      Router.push('/chat');
+    }
+  }
 
     const [errorMsg, setErrorMsg] = useState('')
 

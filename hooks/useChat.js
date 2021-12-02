@@ -9,7 +9,7 @@ const useChat = (roomId) => {
   const [messages, setMessages] = useState([]);
   const socketRef = useRef();
 
-  const user = useUser();
+  const {user} = useUser();
 
   useEffect(() => {
     setMessages([]);

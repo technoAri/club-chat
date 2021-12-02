@@ -4,6 +4,7 @@ import NextModal from 'react-modal';
 import Image from "next/image";
 import { updateProfileAvatar } from '../../redux/action/profile.action';
 import { useUser } from "../../../lib/hooks";
+import cross from "../../../public/cross.svg";
 import styles from "./ProfileMain.module.scss";
 import Avatar from '../../../public/assets/avatar.png';
 import Avatar1 from '../../../public/assets/avatar1.png';
@@ -24,12 +25,15 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        maxWidth: '80%',
+        maxWidth: '90%',
         height: '50%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#19181d',
+        margin: '0',
+        padding: '18px',
     },
     overlay: {
         backgroundColor: 'rgb(25, 24, 29, 0.95)',
@@ -40,7 +44,7 @@ export default function UpdateDPModal({ props }) {
     const dispatch = useDispatch();
     const [avatar, setAvatar] = useState('avatar');
     const { modalIsOpen, closeModal } = props;
-    const user = useUser();
+    const { user } = useUser();
     const updateAvatar = (avatar) => {
         dispatch(updateProfileAvatar(user.id, avatar));
     }
@@ -59,7 +63,9 @@ export default function UpdateDPModal({ props }) {
                 contentLabel="Example Modal"
             >
                 <div className={styles.closebtn}>
-                    <button onClick={closeModal}>X</button>
+                    <button onClick={closeModal}>
+                        <Image src={cross} alt="plus_icon" layout="intrinsic" width={35} height={35} />
+                    </button>
                 </div>
                 <div className={styles.avatardiv}>
                     <Image src={Avatar} onClick={() => setAvatar('avatar')} alt="plus_icon" layout="intrinsic" width={100} height={100} />

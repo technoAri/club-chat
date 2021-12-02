@@ -1,18 +1,22 @@
-import { useState } from 'react'
-import Router from 'next/router'
+import { useState, useEffect } from 'react'
+import { useRouter } from "next/router";
 import Layout from '../components/layout'
 import Form from '../components/form'
 import { useUser } from '../lib/hooks'
 import Link from 'next/link';
 import Image from "next/image";
 import Logo from "../public/logo.svg";
+import Loader from 'react-loader';
 
 const Login = () => {
-  const user = useUser({ redirectTo: '/login', redirectIfFound: true })
+  const router = useRouter();
+  const { finished, hasUser = false, user, error } = useUser();
   const [errorMsg, setErrorMsg] = useState('')
 
-  if (user) {
-    Router.push('/chat')
+  if (finished) {
+    if (hasUser && user) {
+      router.push('/chat');
+    }
   }
 
   async function handleSubmit(e) {
@@ -26,44 +30,45 @@ const Login = () => {
     }
 
     try {
-        const res = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        })
-  
-        if (res.status === 200) {
-          Router.push('/chat')
-        } else {
-          throw new Error(await res.text())
-        }
-      } catch (error) {
-        console.error('An unexpected error happened occurred:', error)
-        setErrorMsg(error.message)
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+
+      if (res.status === 200) {
+        router.push('/chat')
+      } else {
+        throw new Error(await res.text())
       }
+    } catch (error) {
+      console.error('An unexpected error happened occurred:', error)
+      setErrorMsg(error.message)
     }
   }
-  console.log("errorMessage", typeof errorMsg);
-  return (
-    <Layout>
-      <div className="logincontainer">
-        <div className="login-logocontainer">
-          <Image src={Logo} alt="logo_icon" layout="intrinsic" />
-        </div>
-        <h1 className="login_text">
-          Sign in to Clubchat
-        </h1>
-        <div className="login">
-          <Form isLogin isResetPassword={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
-        </div>
-        <div className="secondary_text">
-          <span>New to Clubchat?</span>
-          <Link href="/signup">
-            <a> Create an account</a>
-          </Link>
-        </div>
-      </div>
-      <style jsx>{`
+
+  return (<>{
+    finished ?
+      <>
+        <Layout>
+          < div className="logincontainer" >
+            <div className="login-logocontainer">
+              <Image src={Logo} alt="logo_icon" layout="intrinsic" />
+            </div>
+            <h1 className="login_text">
+              Sign in to Clubchat
+            </h1>
+            <div className="login">
+              <Form isLogin isResetPassword={false} errorMessage={errorMsg} onSubmit={handleSubmit} />
+            </div>
+            <div className="secondary_text">
+              <span>New to Clubchat?</span>
+              <Link href="/signup">
+                <a> Create an account</a>
+              </Link>
+            </div>
+          </div >
+          <style jsx>{`
       .logincontainer {
         width: 100%;
         height: 100%;
@@ -126,7 +131,10 @@ const Login = () => {
         }
       }
       `}</style>
-    </Layout>
+        </Layout>
+      </>
+      : <Loader />}
+  </>
   )
 }
 

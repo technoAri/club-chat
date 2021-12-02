@@ -117,7 +117,7 @@ export default function LeftDrawer({ props }) {
                         </div>
                         <div className={styles.topicslist}>
                             {userTopicsLists && userTopicsLists.map(item => (
-                                <span key={item.topic.id} onClick={() => { setCurrentChatTopicItem(item) }}>{item.topic.name}</span>
+                                <span key={item.topic.id} onClick={() => { setCurrentChatTopicItem(item); setTogglekey(false); }}>{item.topic.name}</span>
                             ))}
                         </div>
                     </div>

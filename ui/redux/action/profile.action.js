@@ -1,5 +1,6 @@
 import * as TYPE from "../types";
 import axios from "axios";
+import { useUser } from "../../../lib/hooks";
 // import { request } from "../../util/request";
 
 
@@ -26,13 +27,13 @@ export const getProfileData = (userId) => async (dispatch) => {
   }
 };
 
-export const updateProfileAvatar = (userId, avatar) => async (dispatch) => {
+export const updateProfileAvatar = (userId, avatar, username) => async (dispatch) => {
   try {
     var response = await axios.post(
       'api/updateavatar',
       {
         params: {
-          query: { userId, avatar }
+          query: { userId, avatar, username}
         }
       },
       // { headers: { Authorization: getState().user.token } }

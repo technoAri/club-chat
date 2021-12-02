@@ -283,3 +283,21 @@
         }
     }
 }
+
+.closebtn {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-color: transparent;
+    & > button {
+        width: 35px;
+        height: 35px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+}

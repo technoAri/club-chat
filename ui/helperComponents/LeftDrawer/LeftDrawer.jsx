@@ -19,8 +19,8 @@ export default function LeftDrawer({ props }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const [userState, setUserState] = useState(null);
-    const user = useUser();
-    if (user) {
+    const { finished, hasUser = false, user, error } = useUser();
+    if (finished && hasUser) {
         // console.log("USER::", user.id);
         if (!userState) {
             setUserState(user);

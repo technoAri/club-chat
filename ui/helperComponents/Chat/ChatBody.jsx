@@ -52,21 +52,19 @@ function ChatBody({
                 >
                   <li
                     // key={i}
-                    className={`${styles.messageItem} ${
-                      message.ownedByCurrentUser
+                    className={`${styles.messageItem} ${message.ownedByCurrentUser
                         ? styles.myUsername
                         : styles.otherUsername
-                    }`}
+                      }`}
                   >
                     {message.userName}
                   </li>
                   <li
                     // key={i}
-                    className={`${styles.messageItem} ${
-                      message.ownedByCurrentUser
+                    className={`${styles.messageItem} ${message.ownedByCurrentUser
                         ? styles.timestamp
                         : styles.timestamp
-                    }`}
+                      }`}
                   >
                     {message.createdAt}
                   </li>
@@ -74,11 +72,10 @@ function ChatBody({
 
                 <li
                   //   key={i}
-                  className={`${styles.messageItem} ${
-                    message.ownedByCurrentUser
+                  className={`${styles.messageItem} ${message.ownedByCurrentUser
                       ? styles.myMessage
                       : styles.receivedMessage
-                  }`}
+                    }`}
                 >
                   {message.text}
                 </li>
@@ -89,7 +86,8 @@ function ChatBody({
         </ol>
       </div>
       <div className={styles.chatInputBorder}>
-        <textarea
+        <input
+          type="text"
           value={newMessage}
           onChange={handleNewMessageChange}
           placeholder="Write message..."
@@ -97,7 +95,7 @@ function ChatBody({
           onKeyDown={_handleKeyDown}
         />
         <div className={styles.sendBtn} onClick={handleSendMessage}>
-          <Image src={sendIcon} width={25} height={25} className={styles.saturate}/>
+          <Image src={sendIcon} width={25} height={25} className={styles.saturate} />
         </div>
       </div>
     </div>
@@ -111,7 +109,7 @@ function ChatPage() {
   const [errorMsg, setErrorMsg] = useState("");
   var [shouldCallApi, setCallApi] = useState(true);
 
-  const user = useUser();
+  const { user } = useUser();
   //   console.log("user::", user)
   //   if (!user) {
   //       Router.push('/login');
@@ -130,7 +128,7 @@ function ChatPage() {
 
   const userProfile = useSelector((state) => state.profile);
 
-//   const avatar = require(`../../../public/assets/${dpLink}.png`);
+  //   const avatar = require(`../../../public/assets/${dpLink}.png`);
 
   useEffect(() => {
     if (shouldCallApi) {

@@ -4,7 +4,6 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const result = await updateUserProfileDP(req.body.params.query.userId, req.body.params.query.avatar);
-            console.log("UP::", req.body.params.query);
             await updateDPinMessages(req.body.params.query.username, req.body.params.query.avatar)
             res.status(200).send({ result })
         } catch (error){

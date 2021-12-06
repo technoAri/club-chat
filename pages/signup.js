@@ -48,18 +48,15 @@ const Signup = () => {
                 body: JSON.stringify(body),
             })
             if (res.status === 200) {
-                
-                
                   const res1 = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
                   })
-            
                   if (res1.status === 200) {
-                    router.push('/chat')
+                    Router.push('/chat')
                   } else {
-                    router.push('/login')
+                    Router.push('/login')
                     throw new Error(await res.text())
                   }
                

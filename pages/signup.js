@@ -59,7 +59,7 @@ const Signup = () => {
                   if (res1.status === 200) {
                     router.push('/chat')
                   } else {
-                    Router.push('/login')
+                    router.push('/login')
                     throw new Error(await res.text())
                   }
                

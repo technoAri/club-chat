@@ -106,7 +106,7 @@ function ChatBody({
 }
 
 function ChatPage() {
-  const [roomId, setRoomId] = useState("random");
+  const [roomId, setRoomId] = useState("clubchat-community");
   var { messages, sendMessage, setMessages } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -202,7 +202,7 @@ function ChatPage() {
       text: newMessage,
       userId: user.id,
       username: user.username,
-      topicId: selectedTopics.currentChatTopic.topic.id,
+      topicId: selectedTopics.currentChatTopic ? selectedTopics.currentChatTopic.topic.id : '028551f8-4f76-4ce5-aa14-f9cb5b94959f',
       createdAt: timestamp,
       dpLink: userProfile.profileData.dpLink,
     };

@@ -28,6 +28,10 @@
             flex-wrap: nowrap;
             justify-content: center;
             align-items: center;
+            & > span {
+                width: 60%;
+                height: 100%;
+            }
             & > div {
                 width: 60%;
                 height: 100%;

@@ -10,7 +10,7 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
     {!isLogin && !isResetPassword && (
       <label>
         <span>Username</span>
-        <input type="text" name="username" required />
+        <input type="text" name="username" value="chat5@gmail.com" required />
       </label>
     )}
     <label>
@@ -24,7 +24,7 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
           </>
         )}
       </div>
-      <input type="password" name="password" required />
+      <input type="password" name="password" value="Chat@2022" required />
     </label>
     {!isLogin && (
       <label>

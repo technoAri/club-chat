@@ -10,7 +10,7 @@ const Form = ({ isLogin, errorMessage, onSubmit, isResetPassword }) => (
     {!isLogin && !isResetPassword && (
       <label>
         <span>Username</span>
-        <input type="text" name="username" value="chat5@gmail.com" required />
+        <input type="email" name="username" value="chat5@gmail.com" required />
       </label>
     )}
     <label>

@@ -17,12 +17,14 @@ function ChatBody({
   dpLink,
   timestamp,
 }) {
+  const messagesDivRef = useRef(null);
+  console.log("messagesDivRef", messagesDivRef);
   const _handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      console.log("do validate");
       e.preventDefault();
       if (newMessage.length > 0) {
         handleSendMessage();
+        messagesDivRef.current?.scrollIntoView({ behavior: "smooth" });
       }
     }
   };
@@ -53,8 +55,8 @@ function ChatBody({
                   <li
                     // key={i}
                     className={`${styles.messageItem} ${message.ownedByCurrentUser
-                        ? styles.myUsername
-                        : styles.otherUsername
+                      ? styles.myUsername
+                      : styles.otherUsername
                       }`}
                   >
                     {message.userName}
@@ -62,8 +64,8 @@ function ChatBody({
                   <li
                     // key={i}
                     className={`${styles.messageItem} ${message.ownedByCurrentUser
-                        ? styles.timestamp
-                        : styles.timestamp
+                      ? styles.timestamp
+                      : styles.timestamp
                       }`}
                   >
                     {message.createdAt}
@@ -73,8 +75,8 @@ function ChatBody({
                 <li
                   //   key={i}
                   className={`${styles.messageItem} ${message.ownedByCurrentUser
-                      ? styles.myMessage
-                      : styles.receivedMessage
+                    ? styles.myMessage
+                    : styles.receivedMessage
                     }`}
                 >
                   {message.text}
@@ -83,6 +85,7 @@ function ChatBody({
               </div>
             </div>
           ))}
+          <div ref={messagesDivRef}></div>
         </ol>
       </div>
       <div className={styles.chatInputBorder}>
@@ -103,7 +106,7 @@ function ChatBody({
 }
 
 function ChatPage() {
-  const [roomId, setRoomId] = useState("random");
+  const [roomId, setRoomId] = useState("clubchat-community");
   var { messages, sendMessage, setMessages } = useChat(roomId);
   const [newMessage, setNewMessage] = React.useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -118,13 +121,10 @@ function ChatPage() {
 
   const createRoom = (room) => {
     setRoomId(room);
-
-    console.log("roomid::", room);
     if (errorMsg) setErrorMsg("");
   };
 
   const selectedTopics = useSelector((state) => state.topics);
-  console.log("selectedTopics", selectedTopics);
 
   const userProfile = useSelector((state) => state.profile);
 
@@ -133,15 +133,9 @@ function ChatPage() {
   useEffect(() => {
     if (shouldCallApi) {
       const { isLoaded = false, profileData = {} } = userProfile;
-      console.log("UserProfile::", userProfile);
       if (selectedTopics.currentChatTopic) {
         if (selectedTopics.currentChatTopic.topic) {
           createRoom(selectedTopics.currentChatTopic.topic.name);
-          console.log(
-            "selectedTopics::",
-            selectedTopics.currentChatTopic.topic.name
-          );
-
           if (selectedTopics.currentChatTopic.topic) {
             try {
               fetch(
@@ -160,7 +154,6 @@ function ChatPage() {
                     }
                     setMessages(data.messages);
                     scrollToBottom();
-                    console.log("messages::", data.messages);
                   }
                 })
                 .catch((error) => {
@@ -183,7 +176,6 @@ function ChatPage() {
       behavior: "smooth",
       block: "end",
     });
-    console.log("Ref:", messagesEndRef);
   };
 
   const handleNewMessageChange = (event) => {
@@ -210,7 +202,7 @@ function ChatPage() {
       text: newMessage,
       userId: user.id,
       username: user.username,
-      topicId: selectedTopics.currentChatTopic.topic.id,
+      topicId: selectedTopics.currentChatTopic ? selectedTopics.currentChatTopic.topic.id : '028551f8-4f76-4ce5-aa14-f9cb5b94959f',
       createdAt: timestamp,
       dpLink: userProfile.profileData.dpLink,
     };
@@ -222,7 +214,7 @@ function ChatPage() {
         body: JSON.stringify(body),
       });
       if (res.status === 200) {
-        console.log(res);
+        // console.log(res);
       } else {
         throw new Error(res.text);
       }
@@ -231,7 +223,7 @@ function ChatPage() {
       setErrorMsg(error.message);
     }
 
-    console.log("SendMesseges::", messages);
+    // console.log("SendMesseges::", messages);
   };
 
   return (

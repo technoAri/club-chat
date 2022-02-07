@@ -3,10 +3,10 @@
 <p align="center">
     <img src="./public/logo.svg" alt="Logo" width="400" height="200" >
 </p>
-We are living in the age of digital world, where sharing knowledge and communication is been vital for running a business or maintaining a good relationship. I tried to develop a chat application where a user can create and 
+We are living in digital age, where sharing knowledge and communication is been vital for running a business or maintaining a good relationship. I tried to develop a chat application where a user can create and 
 communicate on a topic seamlessly. User can create a topic or he/she can add an existing topic to his/her list. The web app is fully responsive, you can use it on Mobile/Laptop/Desktop, anywhere.
 
-
+<br/><br/>
 Welcome! we hope you enjoy the site as much as we enjoyed making it.
  
   

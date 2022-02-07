@@ -1,10 +1,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-    <img src="https://res.cloudinary.com/n10eta/image/upload/v1639114980/readme/UntitledcareTracker_1_lrqwmk.png" alt="Logo" width="400" height="200" >
+    <img src="./public/logo.svg" alt="Logo" width="400" height="200" >
 </p>
-We are living in the age of digital world, where sharing knowledge and communication is been vital for running a business or maintaining a good relationship. We tried to develop a chat application where a user can create and 
-communicate on a topic seamlessly. User can create a topic or he/she can add an existing topic to list. The web app is fully responsive you can use it on Mobile/Laptop/Desktop, anywhere.
+We are living in the age of digital world, where sharing knowledge and communication is been vital for running a business or maintaining a good relationship. I tried to develop a chat application where a user can create and 
+communicate on a topic seamlessly. User can create a topic or he/she can add an existing topic to his/her list. The web app is fully responsive, you can use it on Mobile/Laptop/Desktop, anywhere.
 
 
 Welcome! we hope you enjoy the site as much as we enjoyed making it.
@@ -47,7 +47,7 @@ Test Credentials:
 
 1. Clone the repo
     ```sh
-    git clone https://github.com/pesto-students/clubchat-n9-kappa.git
+    git clone https://github.com/pesto-students/clubchat-n9-kappa.git CLUB-13
     ```
 2. Set environment variables
 
@@ -86,8 +86,8 @@ We tried to use a completely modern tech stack while testing out some new techno
 - [Axios](https://axios-http.com/docs/intro)
 - [Next JS](https://nextjs.org/)
 - [Redux](https://redux.js.org/)
-- [Redux-Thunk] (https://github.com/reduxjs/redux-thunk)
-- [Prisma] (https://www.prisma.io/)
+- [Redux-Thunk](https://github.com/reduxjs/redux-thunk)
+- [Prisma](https://www.prisma.io/)
 
 <br/>
 
@@ -99,4 +99,4 @@ We tried to use a completely modern tech stack while testing out some new techno
 
 # License
 
-[MIT](https://opensource.org/licenses/MIT)
+- [MIT](https://opensource.org/licenses/MIT)

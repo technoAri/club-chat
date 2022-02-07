@@ -1,34 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+    <img src="https://res.cloudinary.com/n10eta/image/upload/v1639114980/readme/UntitledcareTracker_1_lrqwmk.png" alt="Logo" width="400" height="200" >
+</p>
+We are living in the age of digital world, where sharing knowledge and communication is been vital for running a business or maintaining a good relationship. We tried to develop a chat application where a user can create and 
+communicate on a topic seamlessly. User can create a topic or he/she can add an existing topic to list. The web app is fully responsive you can use it on Mobile/Laptop/Desktop, anywhere.
 
-## Getting Started
 
-First, run the development server:
+Welcome! we hope you enjoy the site as much as we enjoyed making it.
+ 
+  
+<!-- TABLE OF CONTENTS -->
+<br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+# Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. [Demo](#demo)
+2. [Installation](#installation)
+3. [Technology Stack](#technology-stack)
+4. [Authors](#authors)
+5. [License](#license)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<br/>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# Demo
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+[Live Demo](http://club-chat-test2.herokuapp.com/chat)
 
-## Learn More
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
+Please Note:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. We recommend using this app in Google Chrome
+2. You can use the app on Laptop/desktop/Mobile.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+<br/>
+Test Credentials:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- For User
+ 	 - Email - chat5@gmail.com
+ 	 - OTP: Chat@2022
+<br/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Installation
+
+1. Clone the repo
+    ```sh
+    git clone https://github.com/pesto-students/clubchat-n9-kappa.git
+    ```
+2. Set environment variables
+
+REACT_APP_SERVER_URL=<br />
+REACT_APP_ORG_ID=<br />
+REACT_APP_DYTE_URL=<br />
+REACT_APP_FIREBASE_API=<br />
+REACT_APP_AUTH_DOMAIN=<br />
+REACT_APP_PROJECT_ID=<br />
+REACT_APP_STORAGE_BUCKET=<br />
+REACT_APP_MESSAGING_SENDER_ID=<br />
+REACT_APP_APP_ID=<br />
+REACT_APP_MEASUREMENT_ID=<br />
+REACT_APP_PAY_ID=<br />
+
+3. Install NPM packages
+    ```sh
+     npm install
+    ```
+4. Run
+    ```sh
+    npm start
+    ```
+5. Open http://localhost:3000 to view it in the browser
+
+6. Run Test cases
+    ```sh
+    npm test
+    ```
+<br/>
+
+# Technology Stack
+
+We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
+
+- [Axios](https://axios-http.com/docs/intro)
+- [Next JS](https://nextjs.org/)
+- [Redux](https://redux.js.org/)
+- [Redux-Thunk] (https://github.com/reduxjs/redux-thunk)
+- [Prisma] (https://www.prisma.io/)
+
+<br/>
+
+# Authors
+
+- [Ayush Saurav](https://github.com/ayushambasta)
+
+<br/>
+
+# License
+
+[MIT](https://opensource.org/licenses/MIT)

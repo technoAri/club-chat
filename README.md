@@ -91,7 +91,7 @@ We tried to use a completely modern tech stack while testing out some new techno
 
 <br/>
 
-# Authors
+# Author
 
 - [Ayush Saurav](https://github.com/ayushambasta)
 

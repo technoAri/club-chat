@@ -9,6 +9,7 @@ export default async function resetPassword(req, res) {
       if (req.body.email.includes('@')) {
         // await findUser(req.body.username)
         if (isTrue) {
+          debugger;
             updatePassword(req.body.email, req.body.password)
             res.status(200).send({ done: true })
         }

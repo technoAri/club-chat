@@ -40,15 +40,13 @@ Test Credentials:
 
 - For User
  	 - Email - chat5@gmail.com
- 	 - OTP: Chat@2022
+ 	 - Password: Chat@2022
 <br/>
 
 # Installation
 
 1. Clone the repo
-    ```sh
-    git clone https://github.com/pesto-students/clubchat-n9-kappa.git CLUB-13
-    ```
+   
 2. Set environment variables
 
 REACT_APP_SERVER_URL=<br />

@@ -92,6 +92,7 @@ We tried to use a completely modern tech stack while testing out some new techno
 # Author
 
 - [Arindam Ganguly](https://github.com/technoAri)
+- Ayush Saurav (add github)
 
 <br/>
 

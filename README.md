@@ -93,7 +93,7 @@ We tried to use a completely modern tech stack while testing out some new techno
 
 # Author
 
-- [Ayush Saurav](https://github.com/ayushambasta)
+- [Arindam Ganguly](https://github.com/technoAri)
 
 <br/>
 

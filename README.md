@@ -25,7 +25,7 @@ Welcome! we hope you enjoy the site as much as we enjoyed making it.
 
 # Demo
 
-[Live Demo](http://club-chat-test2.herokuapp.com/chat)
+[Live Demo](https://club-chat2.herokuapp.com/)
 
 <br/>
 
